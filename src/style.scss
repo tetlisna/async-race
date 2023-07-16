@@ -1,0 +1,64 @@
+$var-bg-color: #000;
+$var-text-color: #fff;
+
+:root {
+    --max-width: 1024px;
+    --max-height: 800px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--max-width);
+    max-height: var(--max-height);
+    background-color: $var-bg-color;
+    color: $var-text-color;
+}
+
+.container {
+    width: 100%;
+}
+
+.btn {
+    border: none;
+    transition-duration: 0.4s;
+
+    &:hover {
+        color: #34434b;
+    }
+}
+
+.btn-blue {
+    background-color: lightblue;
+}
+
+.btn-green {
+    background-color: lightgreen;
+}
+
+.car {
+    width: 50px;
+    height: 50px;
+    top: 50px;
+    left: 50px;
+    position: absolute;
+}
+
+.car img {
+    width: 100%;
+    animation: car 1s linear infinite;
+}
+
+@keyframes car {
+    0% {
+        transform: translateY(-4px);
+    }
+
+    50% {
+        transform: translateY(0px);
+    }
+
+    100% {
+        transform: translateY(-4px);
+    }
+}
