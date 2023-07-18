@@ -4,6 +4,7 @@ $var-text-color: #fff;
 :root {
     --max-width: 1024px;
     --max-height: 800px;
+    font-family: sans-serif;
 }
 
 body {
@@ -15,25 +16,33 @@ body {
     color: $var-text-color;
 }
 
-.container {
+.container-input {
+    display: flex;
     width: 100%;
 }
 
 .btn {
-    border: none;
+    border: 2px solid #fff;
+    padding: 10px;
+    margin: 10px 5px;
+    text-transform: uppercase;
     transition-duration: 0.4s;
-
+    background-color: rgb(60, 120, 140);
+    
     &:hover {
-        color: #34434b;
+        color: rgb(99, 187, 51);
+        cursor: pointer;
+    }
+    &.btn-selected {
+        text-decoration: underline;
     }
 }
 
-.btn-blue {
-    background-color: lightblue;
-}
-
 .btn-green {
+    display: flex;
+    width: 100px;
     background-color: lightgreen;
+    text-transform: uppercase;
 }
 
 .car {

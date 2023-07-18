@@ -14,6 +14,7 @@ module.exports = {
     port: 8000,
     open: true,
     hot: true,
+    historyApiFallback:true
   },
   entry: './src/index.ts',
   resolve: {

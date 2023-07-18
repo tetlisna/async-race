@@ -1,4 +1,4 @@
-.garage-page {
+.winners-page {
     display: flex;
     flex-direction: column;
     height: 70%;
@@ -7,7 +7,7 @@
     padding: 20px;
     box-sizing: border-box;
 }
-.cars-container {
+.winners-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -15,18 +15,4 @@
     width: 100%;
     gap: 2%;
     height: 70%;
-}
-.input-field {
-    cursor: pointer;
-    background-color: aliceblue;
-}
-.color-palette {
-    display:flex;
-}
-.color-box {
-    width: 30px;
-    height: 30px;
-    margin: 5px;
-    border: 1px solid #000;
-    cursor:pointer;
 }
