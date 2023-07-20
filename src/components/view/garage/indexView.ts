@@ -4,13 +4,20 @@ import { Create_BTN, Update_BTN } from '../../../models/State';
 import { ElementRender } from '../../util/ElementRender';
 import { IRenderElement } from '../../../models/interfaces/IRenderElement';
 import { InputCreator } from '../../util/InputCreator';
+
 export class IndexView extends View {
     firstField: string;
+
     secondField: string;
+
     btnsContent: string[];
+
     name = 'Garage';
+
     page_total = 0;
+
     page_number = 1;
+
     constructor() {
         const params: IRenderElement = {
             tag: 'section',
@@ -26,6 +33,7 @@ export class IndexView extends View {
         this.page_total = 0;
         this.page_number = 1;
     }
+
     configureView() {
         let inputParams: IRenderElement = {
             tag: 'input',
@@ -45,7 +53,7 @@ export class IndexView extends View {
         inputCreator = new InputCreator(inputParams) as ElementRender;
         this.elementRender.addInnerElement(inputCreator)
 
-        let inputDiv = {
+        const inputDiv = {
             tag: 'div',
             classNames: [cssClasses.CONTAINER_input],
         }
@@ -53,31 +61,32 @@ export class IndexView extends View {
         this.elementRender.addInnerElement(btnsDivCreator);
 
         this.btnsContent.forEach((btn) => {
-            let btnParams = {
+            const btnParams = {
                 tag: 'button',
                 classNames: [cssClasses.BTN, cssClasses.BTNGreen],
                 textContent: btn,
-                //callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
+                // callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
             }
             const btnCreate = new ElementRender(btnParams) as ElementRender;
             btnsDivCreator.addInnerElement(btnCreate);
         })
 
-        let pageParams: IRenderElement = {
+        const pageParams: IRenderElement = {
             tag: 'h1',
             classNames: [cssClasses.HEADER_page],
             textContent: `${this.name} (${this.page_total})`,
         }
-        let pageHeader = new ElementRender(pageParams) as ElementRender;
+        const pageHeader = new ElementRender(pageParams) as ElementRender;
         this.elementRender.addInnerElement(pageHeader);
-        let pageNum: IRenderElement = {
+        const pageNum: IRenderElement = {
             tag: 'p',
             classNames: [],
             textContent: `Page ${this.page_number}`,
         }
-        let pageNumCreate = new ElementRender(pageNum) as ElementRender;
+        const pageNumCreate = new ElementRender(pageNum) as ElementRender;
         this.elementRender.addInnerElement(pageNumCreate);
     }
+
     setContent(view: View) {
         const element = this.elementRender.getElement() as HTMLElement;
         const currEl = this.elementRender.getElement() as HTMLElement;
@@ -86,6 +95,7 @@ export class IndexView extends View {
         }
         this.elementRender.addInnerElement(element)
     }
+
     keyupHandler(event: KeyboardEvent, fieldName: 'firstField' | 'secondField') {
         if (event.target instanceof HTMLInputElement) {
             this as IndexView;

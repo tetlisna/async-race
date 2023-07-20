@@ -12,12 +12,13 @@ export class WinnersView extends View {
         const params: IRenderElement = {
             tag: 'section',
             classNames: [cssClasses.WINNERS]
-            //textContent: 'Hello winners',
+            // textContent: 'Hello winners',
             // callback: null
         }
         super(params);
         this.configureView();
     }
+
     configureView(): void {
     }
 

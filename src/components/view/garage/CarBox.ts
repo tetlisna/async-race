@@ -15,6 +15,7 @@ export class CarBox extends View {
         super(params);
         this.configureView();
     }
+
     configureView(): void {
         carList.forEach((car: any) => {
             const carView = new Car(car);

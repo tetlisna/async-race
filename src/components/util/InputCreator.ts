@@ -7,8 +7,11 @@ export class InputCreator extends ElementRender {
     //     super(params)
     // }
     inputElementText!: HTMLInputElement;
+
     inputElementColor!: HTMLInputElement;
+
     btnElement!: HTMLElement;
+
     renderEl(params: IRenderElement) {
         const { classNames, type, textContent, callback } = params;
         this.element = document.createElement('div') as HTMLElement;
@@ -26,9 +29,11 @@ export class InputCreator extends ElementRender {
         this.element.append(this.inputElementText, this.inputElementColor, this.btnElement)
 
     }
+
     setValue(value: string) {
         this.inputElementText.value = value;
     }
+
     setTextContent(text: string): void {
         this.btnElement.textContent = text;
     }
@@ -38,6 +43,7 @@ export class InputCreator extends ElementRender {
             (this.element as HTMLElement).addEventListener('keyup', (event: Event) => callback(event))
         }
     }
+
     setCssClasses(cssParam: string[]) {
         cssParam.forEach((className): void => (this.element as HTMLElement).classList.add(cssClasses.INPUT))
     }

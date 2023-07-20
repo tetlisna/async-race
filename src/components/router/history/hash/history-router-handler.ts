@@ -3,7 +3,9 @@ import { paramsHistory } from "../../../../models/types/types";
 
 export class HistoryRouterHandler {
     params: paramsHistory;
+
     callback: (params: IRouterResult) => void;
+
     handler: (event: PopStateEvent | string) => void;
 
     constructor(callback: (params: IRouterResult) => void) {
@@ -16,6 +18,7 @@ export class HistoryRouterHandler {
 
         window.addEventListener(this.params.nameEvent, this.handler as EventListener);
     }
+
     navigate(url: PopStateEvent| string): void {
         if (typeof url === 'string'){
             this.setHistory(url);
@@ -25,9 +28,11 @@ export class HistoryRouterHandler {
         const path = urlString.split('/');
         [result.path, result.resource] = path;
     }
+
     disable(): void {
         window.removeEventListener(this.params.nameEvent, this.handler  as EventListener);
     }
+
     setHistory(url:string): void {
         window.history.pushState(null, '', `/${url}`)
     }

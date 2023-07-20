@@ -3,13 +3,14 @@ import { IRenderElement } from "../../../models/interfaces/IRenderElement";
 import { carInfo } from "../../../models/types/types";
 import { View } from "../view";
 import { ElementRender } from "../../util/ElementRender";
+
 const textCar = "hhhh";
 
 export class Car extends View {
     car: carInfo;
 
     constructor(car: carInfo){
-        let params: IRenderElement = {
+        const params: IRenderElement = {
             tag: 'article',
             classNames: [cssClasses.CONTAINER_Car],
             textContent: textCar,
@@ -19,8 +20,9 @@ export class Car extends View {
         this.car = car;
         this.configureView();
     }
+
     configureView() {
-        const car = this.car
+        const {car} = this
         const carParams:IRenderElement = {
             tag: "div",
             classNames: [],

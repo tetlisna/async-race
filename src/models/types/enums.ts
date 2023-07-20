@@ -38,4 +38,4 @@ export const ID_SELECTOR = '{id}';
 //     resource: resourceValue,
 //   };
 
-//export enum notFound // 'Ошибка. Страница не найдена.';
+// export enum notFound // 'Ошибка. Страница не найдена.';

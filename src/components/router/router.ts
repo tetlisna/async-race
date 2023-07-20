@@ -3,41 +3,44 @@ import { pages, ID_SELECTOR } from '../../models/types/enums';
 import { HistoryRouterHandler } from './history/hash/history-router-handler';
 import { HashRouterHandler } from './history/hash/hash-router-handler';
 import { IRouterResult } from "../../models/interfaces/IRouterResult";
-
+type resultP = { path: '', resource: '' }
 export class Router {
     routes: Routes[];
-    static navigate: Function;
-    //handler: HistoryRouterHandler;
+    handler: HistoryRouterHandler;
 
     constructor(routes: Routes[]) {
         this.routes = routes;
-       // this.handler = new HistoryRouterHandler();
+        this.handler = new HistoryRouterHandler(this.urlChangedHandler.bind(this));
         document.addEventListener('DOMContentLoaded', () => {
-          //this.handler.navigate('');
-          Router.navigate('');
+            this.handler.navigate('');
+            this.navigate('');
         })
     }
+
     setHashHandler() {
-        //this.handler.disable();
-       // this.handler = new HashRouterHandler(this.urlChangedHandler.bind(this));
+        this.handler.disable();
+        this.handler = new HashRouterHandler(this.urlChangedHandler.bind(this));
     }
     navigate(url: string) {
-        const req = this.parseUrl(url);
-        const pathNotFound = req.resource === '' ? req.path : `${req.path}/ ${req.resource}`;
-        const route = this.routes.find((item) => item.path === pathNotFound);
+        this.handler.navigate(url);
+    }
+    urlChangedHandler(requestParams: any) {
+        const pathForFind = requestParams.resource === '' 
+        ? requestParams.path : `${requestParams.path}/${ID_SELECTOR}`;
+        const route = this.routes.find((item) => item.path === pathForFind);
 
+        if (!route) {
+            this.redirectToNotFoundPage();
+            return;
+        }
+
+        route.callback(requestParams.resource);
     }
-    parseUrl(url: string) {
-        const result = { path: '', resource: '' };
-        const path = url.split('/');
-        [result.path = '', result.resource = ''] = path;
-        return result;
-    }
+
     redirectToNotFoundPage() {
         const notFoundPage = this.routes.find((item) => item.path === pages.NOT_FOUND);
         if (notFoundPage) {
-           // this.navigate(notFoundPage.path);
-           Router.navigate(notFoundPage.path);
+            this.navigate(notFoundPage.path);
         }
     }
 }
