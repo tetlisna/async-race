@@ -4,24 +4,27 @@ import { Create_BTN, Update_BTN } from '../../../models/State';
 import { ElementRender } from '../../util/ElementRender';
 import { IRenderElement } from '../../../models/interfaces/IRenderElement';
 import { InputCreator } from '../../util/InputCreator';
-import { ButtonView } from '../header/buttonView';
-
 export class IndexView extends View {
     firstField: string;
     secondField: string;
-    btnsGame: [];
+    btnsContent: string[];
+    name = 'Garage';
+    page_total = 0;
+    page_number = 1;
     constructor() {
         const params: IRenderElement = {
             tag: 'section',
             classNames: [cssClasses.GARAGE],
-            // textContent: '',
-            // callback: null,
         }
         super(params);
+        this.btnsContent = ['race', 'update', 'generate cars']
         this.configureView();
         this.firstField = '';
         this.secondField = '';
-        this.btnsGame = []
+
+        this.name = 'Garage';
+        this.page_total = 0;
+        this.page_number = 1;
     }
     configureView() {
         let inputParams: IRenderElement = {
@@ -42,51 +45,49 @@ export class IndexView extends View {
         inputCreator = new InputCreator(inputParams) as ElementRender;
         this.elementRender.addInnerElement(inputCreator)
 
-        let btnsDiv = {
+        let inputDiv = {
             tag: 'div',
             classNames: [cssClasses.CONTAINER_input],
-            textContent: '',
-            // callback: {},
         }
-        const btnsDivCreator = new ElementRender(btnsDiv) as ElementRender;
-        this.elementRender.addInnerElement(btnsDivCreator)
+        const btnsDivCreator = new ElementRender(inputDiv) as ElementRender;
+        this.elementRender.addInnerElement(btnsDivCreator);
 
-        let btnParamsUpdate = {
-            tag: 'button',
-            classNames: [cssClasses.BTN, cssClasses.BTNGreen],
-            textContent: btn.UPDATE,
-            //callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
+        this.btnsContent.forEach((btn) => {
+            let btnParams = {
+                tag: 'button',
+                classNames: [cssClasses.BTN, cssClasses.BTNGreen],
+                textContent: btn,
+                //callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
+            }
+            const btnCreate = new ElementRender(btnParams) as ElementRender;
+            btnsDivCreator.addInnerElement(btnCreate);
+        })
+
+        let pageParams: IRenderElement = {
+            tag: 'h1',
+            classNames: [cssClasses.HEADER_page],
+            textContent: `${this.name} (${this.page_total})`,
         }
-        const btnCreator = new ElementRender(btnParamsUpdate) as ElementRender;
-        
-        let btnParamsRace = {
-            tag: 'button',
-            classNames: [cssClasses.BTN, cssClasses.BTNGreen],
-            textContent: btn.RACE,
-           // callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
+        let pageHeader = new ElementRender(pageParams) as ElementRender;
+        this.elementRender.addInnerElement(pageHeader);
+        let pageNum: IRenderElement = {
+            tag: 'p',
+            classNames: [],
+            textContent: `Page ${this.page_number}`,
         }
-        const btnRace = new ElementRender(btnParamsRace) as ElementRender;
-        this.elementRender.addInnerElement(btnRace);
-
-        let btnParamsGenerate = {
-            tag: 'button',
-            classNames: [cssClasses.BTN, cssClasses.BTNGreen],
-            textContent: btn.GENERATE_CARS,
-            //callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
-        }
-
-        const btnGenerate = new ElementRender(btnParamsGenerate) as ElementRender;
-        this.elementRender.addInnerElement(btnGenerate);
-        btnsDivCreator.addInnerElement(btnCreator);
-        btnsDivCreator.addInnerElement(btnRace);
-       btnsDivCreator.addInnerElement(btnGenerate);
-
-       //this.btnsGame.push(btnCreator) 
+        let pageNumCreate = new ElementRender(pageNum) as ElementRender;
+        this.elementRender.addInnerElement(pageNumCreate);
     }
-
+    setContent(view: View) {
+        const element = this.elementRender.getElement() as HTMLElement;
+        const currEl = this.elementRender.getElement() as HTMLElement;
+        while (currEl.firstElementChild) {
+            currEl.firstElementChild.remove();
+        }
+        this.elementRender.addInnerElement(element)
+    }
     keyupHandler(event: KeyboardEvent, fieldName: 'firstField' | 'secondField') {
         if (event.target instanceof HTMLInputElement) {
-            console.log(this, "this indexview config");
             this as IndexView;
             this[fieldName] = event.target.value;
         }

@@ -5,14 +5,14 @@ import { View } from "../view";
 export class WinnersView extends View {
     // pageNumber:number;
     // winnersTotal: number;
-    constructor() {
+    constructor(id:string) {
         // this.pageNumber = pageNumber;
         // this.winnersTotal = winnersTotal;
         
         const params: IRenderElement = {
             tag: 'section',
             classNames: [cssClasses.WINNERS]
-            // textContent: 'Hello winners',
+            //textContent: 'Hello winners',
             // callback: null
         }
         super(params);

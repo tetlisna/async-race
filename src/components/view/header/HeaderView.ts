@@ -2,19 +2,19 @@ import './header.scss';
 import { cssClasses, pages } from '../../../models/types/enums';
 import { ElementRender } from '../../util/ElementRender';
 import { View } from '../view';
-import { tagClass, Pages } from "../../../models/types/types";
-import { Page_INDEX } from "../../../models/State";
+import { tagClass, Pages, pagesDisplay } from "../../../models/types/types";
 import { ButtonView } from "./buttonView";
 import { GarageView } from '../garage/GarageView';
-import { IndexView } from '../garage/indexView';
-import { CarBox } from '../garage/CarBox';
 import { IRenderElement } from '../../../models/interfaces/IRenderElement';
-import { WinnersView } from '../winner/winnersView';
+import { CarBox } from '../garage/CarBox';
+import { Router } from '../../router/router';
+// import { WinnersView } from '../winner/winnersView';
+import { pagesObj } from '../../../models/State';
 
 export class HeaderView extends View {
-    public linkElements: ButtonView[];
+ //   linksBtnNav1: Map <ButtonView [],string>;
+    linksBtnNav: ButtonView[];
     garageView: GarageView;
-
     constructor(garageView: GarageView) {
         const params: tagClass = {
             tag: 'header',
@@ -22,7 +22,8 @@ export class HeaderView extends View {
         }
         super(params);
         this.garageView = garageView;
-        this.linkElements = [];
+       // this.linksBtnNav1 = new Map();
+        this.linksBtnNav = [];
         this.configureView();
     }
     configureView() {
@@ -36,33 +37,26 @@ export class HeaderView extends View {
         const creatorNav = new ElementRender(paramsNav);
         this.elementRender.addInnerElement(creatorNav);
 
-        const pagesApp = this.getPages(this.garageView);
-        pagesApp.forEach((item, index) => {
-            const linkEl = new ButtonView(item, this.linkElements);
-            creatorNav.addInnerElement(linkEl.getHtmlElement() as HTMLElement);
-            this.linkElements.push(linkEl);
-
-            if (index === Page_INDEX) {
-                item.callback();
-                linkEl.setSelected();
+        Object.keys(pagesObj).forEach((key) => {
+            const linkParams: Pages = {
+                name: pagesObj[key as keyof pagesDisplay],
+                callback: () => Router.navigate(pagesObj[key as keyof pagesDisplay])
             }
+            const linkElement = new ButtonView(linkParams, this.linksBtnNav);
+            creatorNav.addInnerElement(linkElement.getHtmlElement() as HTMLElement);
+            this.linksBtnNav.push(linkElement);
+          //  this.linksBtnNav1.set(pagesObj[key as keyof pagesDisplay], linkElement);
         })
     }
-    getPages(garageView: GarageView) {
-        //  const indexView = new IndexView();
-        // const winnersView = new WinnersView();
-        //const carBox = new CarBox();
+    setSelected(pagesObj:any){
 
-        const pagesApp: Pages[] = [{
-            name: pages.INDEX,
-            callback: () => {},// GarageView.setContent(indexView),
-        }, 
-        {
-            name: pages.WINNERS,
-            callback: () => {} //GarageView.setContent(winnersView),
-        }
-        ]
-        return pagesApp;
+        pagesObj.forEach((el:HTMLElement) => {
+                if(el instanceof ButtonView){
+                    el.setSelected();
+                }})
+
+    
     }
-
 }
+
+

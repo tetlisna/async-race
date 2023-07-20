@@ -18,7 +18,9 @@ export class CarBox extends View {
     configureView(): void {
         carList.forEach((car: any) => {
             const carView = new Car(car);
-            this.elementRender.addInnerElement(carView.getHtmlElement() as HTMLElement)
+            this.elementRender.addInnerElement(carView.getHtmlElement() as HTMLElement);
+            console.log(carView, 'carView-------------');
+            
         })
     }
 

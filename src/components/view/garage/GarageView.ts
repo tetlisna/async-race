@@ -7,7 +7,9 @@ import { ElementRender } from '../../util/ElementRender';
 
 export class GarageView extends View {
     static setContent: Function;
-    name:string;
+    // name:string;
+    // page_total: number;
+    // page_number: number;
     constructor(name:string) {
         const params: IRenderElement = {
             tag: 'section',
@@ -16,26 +18,25 @@ export class GarageView extends View {
         }
         super(params);
         this.configureView();
-        this.name = name;
+        // this.name = 'Garage';
+        // this.page_total = 0;
+        // this.page_number = 1;
     }
-    setContent(view: View) {
-        const element = this.elementRender.getElement() as HTMLElement;
-        const currEl = this.elementRender.getElement() as HTMLElement;
-        while (currEl.firstElementChild) {
-            currEl.firstElementChild.remove();
-        }
-        this.elementRender.addInnerElement(element)
-    }
+    // setContent(view: View) {
+    //     const element = this.elementRender.getElement() as HTMLElement;
+    //     const currEl = this.elementRender.getElement() as HTMLElement;
+    //     while (currEl.firstElementChild) {
+    //         currEl.firstElementChild.remove();
+    //     }
+    //     this.elementRender.addInnerElement(element)
+    // }
     configureView(): void {
-        let inputParams: IRenderElement = {
-            tag: 'input',
-            classNames: [cssClasses.INPUT],
-            textContent: '',
-            callback: (event: KeyboardEvent) => {}// this.keyupHandler(event, 'firstInput'),
-        }
-        let creatorInput = new InputCreator(inputParams) as ElementRender;
-        
-       this.elementRender.addInnerElement(creatorInput.getElement() as HTMLElement);
+        // let inputParams: IRenderElement = {
+        //     tag: 'input',
+        //     classNames: [cssClasses.INPUT],
+        //     textContent: '',
+        //     callback: (event: KeyboardEvent) => {}// this.keyupHandler(event, 'firstInput'),
+        // }
         
     }
     // keyupHandler(event: KeyboardEvent, btn: string) {

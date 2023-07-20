@@ -19,6 +19,7 @@ export class View {
   }
   configureView(){};
   
+  
 }
 
 export default View;

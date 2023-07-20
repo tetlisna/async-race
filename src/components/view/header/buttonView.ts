@@ -15,7 +15,7 @@ export class ButtonView extends View {
         }
         super(paramsBtn);
         this.linkElements = linkElements;
-        this.pageParam =pageParam;
+        this.pageParam = pageParam;
         this.configureView();
 
     }
