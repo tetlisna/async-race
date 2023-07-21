@@ -1,6 +1,6 @@
 import { IRenderElement } from "../../models/interfaces/IRenderElement";
 import { ElementRender } from "./ElementRender";
-import { cssClasses } from "../../models/types/enums";
+import { CssClasses } from "../../models/types/enums";
 
 export class InputCreator extends ElementRender {
     // constructor(){
@@ -21,7 +21,7 @@ export class InputCreator extends ElementRender {
         this.inputElementColor.setAttribute('type', 'color')
 
         this.btnElement = document.createElement('button') as HTMLElement;
-        this.btnElement.classList.add(cssClasses.BTN);
+        this.btnElement.classList.add(CssClasses.BTN);
         this.setCallback(callback!);
         classNames?.forEach(name => (this.element as HTMLElement).classList.add(name));
 
@@ -45,7 +45,7 @@ export class InputCreator extends ElementRender {
     }
 
     setCssClasses(cssParam: string[]) {
-        cssParam.forEach((className): void => (this.element as HTMLElement).classList.add(cssClasses.INPUT))
+        cssParam.forEach((className): void => (this.element as HTMLElement).classList.add(CssClasses.INPUT))
     }
 
 }

@@ -1,4 +1,3 @@
-
 import { App } from './components/app';
 
-new App();
+const app = new App();

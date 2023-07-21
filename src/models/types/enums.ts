@@ -1,4 +1,4 @@
-export enum cssClasses {
+export enum CssClasses {
     HEADER = 'header',
     HEADER_page = 'header-page',
     NAV = 'nav',
@@ -11,18 +11,18 @@ export enum cssClasses {
     BTNBlue = 'btn-blue',
     BTNGreen = 'btn-green',
     CONTAINER_input = 'container-input',
-    CONTAINER_Car= 'container-car',
+    CONTAINER_Car = 'container-car',
     INPUT = 'input-field',
-    INPUT_Update ='input-update',
+    INPUT_Update = 'input-update',
     ERROR = 'not-found'
 }
-export enum pages {
+export enum PagesTitle {
     INDEX = 'garage',
     WINNERS = 'winners',
-    NOT_FOUND = 'not found'
+    NOT_FOUND = 'not-found'
 }
 
-export enum btn {
+export enum Btn {
     CREATE = 'create',
     UPDATE = 'update',
     RACE = 'race',

@@ -1,22 +1,25 @@
 import '../style.scss';
 import { IAppClass } from "../models/interfaces/IAppClass";
-import { ID_SELECTOR , pages } from "../models/types/enums";
+import { ID_SELECTOR, PagesTitle } from "../models/types/enums";
 import { HeaderView } from "./view/header/HeaderView";
-import { GarageView } from "./view/garage/GarageView";
-import { IndexView } from "./view/garage/indexView";
+import { IndexView } from "./view/section/garage/IndexView";
+import { Section } from "./view/section/Section";
 import { Router } from './router/router';
 import { WinnersView } from './view/winner/WinnersView';
-import NotFound from './view/garage/not found/not-found-view';
+import NotFound from './view/section/not found/not-found-view';
 import View from './view/view';
-import { ButtonView } from './view/header/buttonView';
+//import state from './state/state';
 export class App implements IAppClass {
     router: Router;
     header: HeaderView | null;
+    section: Section | null;
     index: IndexView | null;
 
     // routes: Router[];
     constructor() {
         this.header = null;
+        //const state = new State();
+        this.section = null;
         this.index = null;
         const routes = this.createRoutes();
         this.router = new Router(routes);
@@ -24,49 +27,56 @@ export class App implements IAppClass {
     }
 
     renderEl() {
-      //  const garageView = new GarageView('Page');
         this.header = new HeaderView(this.router);
+        this.section = new Section();
         this.index = new IndexView();
-        // garageView.setContent()
         document.body.append(
             this.header.getHtmlElement() as HTMLElement,
-            //   garageView.getHtmlElement() as HTMLElement,
-            this.index.getHtmlElement() as HTMLElement
+            this.section.getHtmlElement() as HTMLElement,
         )
     }
 
     createRoutes() {
         return [
             {
-                path: `${pages.INDEX}`,
+                path: ``,
                 callback: () => {
-                    this.setContent(pages.INDEX, new IndexView());
+                    this.setContent(PagesTitle.INDEX, new IndexView());
                 },
             },
             {
-                path: `${pages.WINNERS}`,
-                callback: (id:string): void => {
-                    this.setContent(pages.WINNERS, new WinnersView(id));
+                path: `${PagesTitle.INDEX}`,
+                callback: (id: string): void => {
+                    this.setContent(PagesTitle.WINNERS, new IndexView());
                 }
             },
             {
-                path: `${pages.WINNERS}/${ID_SELECTOR}}`,
-                callback: (id:string): void => {
-                    this.setContent(pages.WINNERS, new WinnersView(id));
+                path: `${PagesTitle.WINNERS}`,
+                callback: (id: string): void => {
+                    this.setContent(PagesTitle.WINNERS, new WinnersView(id));
                 }
             },
             {
-                path: `${pages.NOT_FOUND}`,
+                path: `${PagesTitle.WINNERS}/${ID_SELECTOR}`,
+                callback: (id: string): void => {
+                    this.setContent(PagesTitle.WINNERS, new WinnersView(id));
+                }
+            },
+            {
+                path: `${PagesTitle.NOT_FOUND}`,
                 callback: (): void => {
-                    this.setContent(pages.NOT_FOUND, new NotFound());
-                }
+                    this.setContent(PagesTitle.NOT_FOUND, new NotFound());
+                },
             },
-        ]
+        ];
     }
 
-    setContent(pageName: any, view:View) {
-        this.header!.setSelected(pageName)
-        this.index!.setContent(view)
-
+    setContent(pageName: string, view: View) {
+        if (this.header) {
+            this.header.setSelected(pageName);
+        }
+        if (this.section) {
+            this.section.setContent(view);
+        }
     }
 }

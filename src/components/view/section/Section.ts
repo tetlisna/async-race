@@ -1,14 +1,12 @@
-import './garage.scss';
-import { cssClasses } from '../../../models/types/enums';
+//import './garage.scss';
+import { CssClasses } from '../../../models/types/enums';
 import { View } from '../view';
-import { IRenderElement } from '../../../models/interfaces/IRenderElement';
+import { tagClass } from '../../../models/types/types';
 
-export class GarageView extends View {
-    static setContent: Function;
-    constructor(name:string) {
-        const params: IRenderElement = {
+export class Section extends View {
+    constructor() {
+        const params: tagClass = {
             tag: 'section',
-            classNames: [cssClasses.GARAGE],
         }
         super(params);
     }
@@ -18,6 +16,5 @@ export class GarageView extends View {
             element.firstElementChild.remove();
         }
         this.elementRender.addInnerElement(content.getHtmlElement() as HTMLElement)
-     }
-
+    }
 }

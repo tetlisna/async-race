@@ -37,6 +37,7 @@
     "jest-environment-jsdom": "^29.6.1",
     "json-server": "^0.16.3",
     "mini-css-extract-plugin": "^2.7.6",
+    "module-alias": "^2.2.3",
     "node-sass": "^9.0.0",
     "nodemon": "^1.14.9",
     "postcss": "^8.4.24",
@@ -50,9 +51,14 @@
     "ts-jest": "^29.1.1",
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.1.6",
     "webpack": "^5.87.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "_moduleAliases": {
+    "@modules": "dist/rest/modules",
+    "@services": "dist/services"
   }
 }

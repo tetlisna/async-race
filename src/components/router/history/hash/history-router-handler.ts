@@ -1,7 +1,7 @@
 import { IRouterResult } from "../../../../models/interfaces/IRouterResult";
 import { paramsHistory } from "../../../../models/types/types";
 
-export class HistoryRouterHandler {
+class HistoryRouterHandler {
     params: paramsHistory;
 
     callback: (params: IRouterResult) => void;
@@ -14,27 +14,30 @@ export class HistoryRouterHandler {
             locationField: 'pathname',
         }
         this.callback = callback;
-        this.handler = this.navigate.bind(this);
+        this.handler = this.navigate.bind(this);        
 
         window.addEventListener(this.params.nameEvent, this.handler as EventListener);
     }
 
-    navigate(url: PopStateEvent| string): void {
+    navigate(url: PopStateEvent| string | null): void {
         if (typeof url === 'string'){
-            this.setHistory(url);
+            HistoryRouterHandler.setHistory(url);
         }
-        const urlString: string = (window as Window).location.pathname.slice(1);
+        const urlString: string = (window as Window).location.pathname.slice(1);  
         const result = {path: '', resource: ''};
         const path = urlString.split('/');
-        [result.path, result.resource] = path;
+        [result.path = '', result.resource = ''] = path;
+        
+        this.callback(result);
     }
 
     disable(): void {
         window.removeEventListener(this.params.nameEvent, this.handler  as EventListener);
     }
 
-    setHistory(url:string): void {
+    static setHistory(url:string): void {
         window.history.pushState(null, '', `/${url}`)
     }
-
 }
+
+export default HistoryRouterHandler;

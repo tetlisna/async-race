@@ -1,4 +1,4 @@
-import { cssClasses } from "../../../models/types/enums"
+import { CssClasses } from "../../../models/types/enums"
 import { IRenderElement } from "../../../models/interfaces/IRenderElement";
 import { carInfo } from "../../../models/types/types";
 import { View } from "../view";
@@ -9,10 +9,10 @@ const textCar = "hhhh";
 export class Car extends View {
     car: carInfo;
 
-    constructor(car: carInfo){
+    constructor(car: carInfo) {
         const params: IRenderElement = {
             tag: 'article',
-            classNames: [cssClasses.CONTAINER_Car],
+            classNames: [CssClasses.CONTAINER_Car],
             textContent: textCar,
             callback: null
         }
@@ -22,8 +22,8 @@ export class Car extends View {
     }
 
     configureView() {
-        const {car} = this
-        const carParams:IRenderElement = {
+        const { car } = this
+        const carParams: IRenderElement = {
             tag: "div",
             classNames: [],
             textContent: car.name,
@@ -31,17 +31,17 @@ export class Car extends View {
         }
         const divCreator = new ElementRender(carParams);
 
-        const carBTN_A:IRenderElement = {
+        const carBTN_A: IRenderElement = {
             tag: "button",
-            classNames: [cssClasses.BTNA],
+            classNames: [CssClasses.BTNA],
             textContent: 'A',
             callback: null
         }
         const BTN_A = new ElementRender(carBTN_A);
 
-        const carBTN_B:IRenderElement = {
+        const carBTN_B: IRenderElement = {
             tag: "button",
-            classNames: [cssClasses.BTNB],
+            classNames: [CssClasses.BTNB],
             textContent: 'B',
             callback: null
         }

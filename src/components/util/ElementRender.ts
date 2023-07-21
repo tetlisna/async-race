@@ -3,9 +3,9 @@ import { IRenderElement } from "../../models/interfaces/IRenderElement";
 export class ElementRender {
     element: HTMLElement | string | null;
 
-    setSelected: any;
+    // setSelected: any;
 
-    setContent: any;
+    // setContent: any;
 
     constructor(params: IRenderElement) {
         this.element = null;
@@ -20,8 +20,8 @@ export class ElementRender {
         this.setCallback(callback!);
     }
 
-    setCssClasses(cssClasses: string[] = []) {
-        cssClasses.forEach((className): void => (this.element as HTMLElement).classList.add(className))
+    setCssClasses(CssClasses: string[] = []) {
+        CssClasses.forEach((className): void => (this.element as HTMLElement).classList.add(className))
     }
 
     setTextContent(text: string) {
@@ -29,7 +29,7 @@ export class ElementRender {
     }
 
     setCallback(callback: CallableFunction) {
-        if(typeof callback === 'function'){
+        if (typeof callback === 'function') {
             (this.element as HTMLElement).addEventListener('click', (event) => callback(event));
         }
     }

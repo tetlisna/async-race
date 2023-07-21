@@ -1,0 +1,5 @@
+class CarModel {
+    constructor(car) {
+
+    }
+}

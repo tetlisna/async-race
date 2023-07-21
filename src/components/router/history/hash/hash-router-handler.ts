@@ -1,8 +1,8 @@
-import { HistoryRouterHandler } from './history-router-handler';
+import HistoryRouterHandler from './history-router-handler';
 import { paramsHistory } from '../../../../models/types/types';
 import { IRouterResult } from '../../../../models/interfaces/IRouterResult';
 
-export class HashRouterHandler extends HistoryRouterHandler {
+class HashRouterHandler extends HistoryRouterHandler {
     params: paramsHistory;
 
     constructor(callbackRouter: (params: IRouterResult) => void) {
@@ -19,3 +19,5 @@ export class HashRouterHandler extends HistoryRouterHandler {
         window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#${url}`;
     }
 }
+
+export default HashRouterHandler;

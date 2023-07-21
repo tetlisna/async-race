@@ -1,9 +1,8 @@
-import { View } from '../view';
-import { cssClasses, btn } from '../../../models/types/enums';
-import { Create_BTN, Update_BTN } from '../../../models/State';
-import { ElementRender } from '../../util/ElementRender';
-import { IRenderElement } from '../../../models/interfaces/IRenderElement';
-import { InputCreator } from '../../util/InputCreator';
+import { View } from '../../view';
+import { CssClasses, Btn } from '../../../../models/types/enums';
+import { ElementRender } from '../../../util/ElementRender';
+import { IRenderElement } from '../../../../models/interfaces/IRenderElement';
+import { InputCreator } from '../../../util/InputCreator';
 
 export class IndexView extends View {
     firstField: string;
@@ -17,19 +16,20 @@ export class IndexView extends View {
     page_total = 0;
 
     page_number = 1;
+   // state: any;
 
     constructor() {
         const params: IRenderElement = {
             tag: 'section',
-            classNames: [cssClasses.GARAGE],
+            classNames: [CssClasses.GARAGE],
         }
         super(params);
         this.btnsContent = ['race', 'update', 'generate cars']
-        this.configureView();
         this.firstField = '';
         this.secondField = '';
-
+       // this.state = state;
         this.name = 'Garage';
+        this.configureView();
         this.page_total = 0;
         this.page_number = 1;
     }
@@ -38,7 +38,7 @@ export class IndexView extends View {
         let inputParams: IRenderElement = {
             tag: 'input',
             classNames: [],
-            textContent: btn.CREATE,
+            textContent: Btn.CREATE,
             callback: (event: KeyboardEvent) => this.keyupHandler(event, 'firstField'),
         }
         let inputCreator = new InputCreator(inputParams) as ElementRender;
@@ -47,7 +47,7 @@ export class IndexView extends View {
         inputParams = {
             tag: 'input',
             classNames: [],
-            textContent: btn.UPDATE,
+            textContent: Btn.UPDATE,
             callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
         }
         inputCreator = new InputCreator(inputParams) as ElementRender;
@@ -55,7 +55,7 @@ export class IndexView extends View {
 
         const inputDiv = {
             tag: 'div',
-            classNames: [cssClasses.CONTAINER_input],
+            classNames: [CssClasses.CONTAINER_input],
         }
         const btnsDivCreator = new ElementRender(inputDiv) as ElementRender;
         this.elementRender.addInnerElement(btnsDivCreator);
@@ -63,9 +63,9 @@ export class IndexView extends View {
         this.btnsContent.forEach((btn) => {
             const btnParams = {
                 tag: 'button',
-                classNames: [cssClasses.BTN, cssClasses.BTNGreen],
+                classNames: [CssClasses.BTN, CssClasses.BTNGreen],
                 textContent: btn,
-                // callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
+                callback: (event: KeyboardEvent) => this.keyupHandler(event, 'secondField'),
             }
             const btnCreate = new ElementRender(btnParams) as ElementRender;
             btnsDivCreator.addInnerElement(btnCreate);
@@ -73,7 +73,7 @@ export class IndexView extends View {
 
         const pageParams: IRenderElement = {
             tag: 'h1',
-            classNames: [cssClasses.HEADER_page],
+            classNames: [CssClasses.HEADER_page],
             textContent: `${this.name} (${this.page_total})`,
         }
         const pageHeader = new ElementRender(pageParams) as ElementRender;
@@ -96,7 +96,7 @@ export class IndexView extends View {
         this.elementRender.addInnerElement(element)
     }
 
-    keyupHandler(event: KeyboardEvent, fieldName: 'firstField' | 'secondField') {
+    keyupHandler(event: KeyboardEvent, fieldName:  'firstField' | 'secondField') {
         if (event.target instanceof HTMLInputElement) {
             this as IndexView;
             this[fieldName] = event.target.value;
