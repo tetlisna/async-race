@@ -8,6 +8,7 @@ import { Router } from './router/router';
 import { WinnersView } from './view/winner/WinnersView';
 import NotFound from './view/section/not found/not-found-view';
 import View from './view/view';
+import CarView from './view/section/garage-cars/Car';
 //import state from './state/state';
 export class App implements IAppClass {
     router: Router;
@@ -29,7 +30,7 @@ export class App implements IAppClass {
     renderEl() {
         this.header = new HeaderView(this.router);
         this.section = new Section();
-        this.index = new IndexView();
+       // this.index = new IndexView('1');
         document.body.append(
             this.header.getHtmlElement() as HTMLElement,
             this.section.getHtmlElement() as HTMLElement,
@@ -41,13 +42,13 @@ export class App implements IAppClass {
             {
                 path: ``,
                 callback: () => {
-                    this.setContent(PagesTitle.INDEX, new IndexView());
+                    this.setContent(PagesTitle.INDEX, new IndexView('1'));
                 },
             },
             {
                 path: `${PagesTitle.INDEX}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new IndexView());
+                    this.setContent(PagesTitle.WINNERS, new IndexView(''));
                 }
             },
             {

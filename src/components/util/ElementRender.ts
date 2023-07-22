@@ -3,10 +3,6 @@ import { IRenderElement } from "../../models/interfaces/IRenderElement";
 export class ElementRender {
     element: HTMLElement | string | null;
 
-    // setSelected: any;
-
-    // setContent: any;
-
     constructor(params: IRenderElement) {
         this.element = null;
         this.renderEl(params);

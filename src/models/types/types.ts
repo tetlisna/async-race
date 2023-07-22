@@ -28,3 +28,4 @@ export type paramsHistory = {
     nameEvent: string,
     locationField: string
 }
+export type fieldNames = 'firstField' | 'secondField';

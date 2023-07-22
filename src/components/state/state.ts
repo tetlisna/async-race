@@ -24,9 +24,6 @@ export default class State {
         localStorage.setItem(storageKey, JSON.stringify(fiedlsObject));
     }
 
-    /**
-     * @returns {Map}
-     */
     loadState() {
         const storageItem = localStorage.getItem(storageKey);
         if (storageItem) {

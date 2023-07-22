@@ -1,5 +1,3 @@
-//import './garage.scss';
-import { CssClasses } from '../../../models/types/enums';
 import { View } from '../view';
 import { tagClass } from '../../../models/types/types';
 

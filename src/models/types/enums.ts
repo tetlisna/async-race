@@ -12,6 +12,7 @@ export enum CssClasses {
     BTNGreen = 'btn-green',
     CONTAINER_input = 'container-input',
     CONTAINER_Car = 'container-car',
+    CAR_Item = 'car-item',
     INPUT = 'input-field',
     INPUT_Update = 'input-update',
     ERROR = 'not-found'
@@ -21,7 +22,6 @@ export enum PagesTitle {
     WINNERS = 'winners',
     NOT_FOUND = 'not-found'
 }
-
 export enum Btn {
     CREATE = 'create',
     UPDATE = 'update',
@@ -30,6 +30,9 @@ export enum Btn {
     GENERATE_CARS = 'generate cars',
     SELECT = 'select',
     REMOVE = 'remove'
+}
+export enum Endpoint {
+    url = 'http://127.0.0.1:3000'
 }
 export const ID_SELECTOR = '{id}';
 
