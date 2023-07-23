@@ -1,13 +1,13 @@
 import Router from 'src/components/router/router';
 import CarStorage from 'src/models/cars/CarStorage';
-import '../garage/garage.scss';
-import View from '../../view';
-import { CssClasses, Btn } from '../../../../models/types/enums';
-import { FieldNames } from '../../../../models/types/types';
+import "./garage.scss";
 import ElementRender from '../../../util/ElementRender';
 import InputCreator from '../../../util/InputCreator';
+import View from '../../view';
+import CarViewList from './garage-cars/CarViewList';
+import { CssClasses, Btn } from '../../../../models/types/enums';
+import { FieldNames } from '../../../../models/types/types';
 import { IrenderView } from '../../../../models/interfaces/IrenderView';
-import CarList from './garage-cars/CarViewList';
 
 class IndexView extends View {
   firstField: string;
@@ -25,14 +25,16 @@ class IndexView extends View {
     },
   ];
 
-  btnsContent: string[];
-
   name = 'Garage';
 
-  page_total = 0;
+  pageTotal = 0;
 
-  page_number = 1;
+  pageNumber = 1;
+
   // state: any;
+  perPage = 7;
+
+  storage: CarStorage;
 
   constructor(id: string) {
     const params: IrenderView = {
@@ -40,15 +42,14 @@ class IndexView extends View {
       classNames: [CssClasses.GARAGE],
     }
     super(params);
-    this.btnsContent = ['race', 'update', 'generate cars']
     this.firstField = '';
     this.secondField = '';
     // this.state = state;
-    this.name = 'Garage';
     // this.car = this.car;
+    this.storage = new CarStorage();
     this.configureView();
-    this.page_total = 0;
-    this.page_number = 1;
+    this.pageTotal = 0;
+    this.pageNumber = 1;
   }
 
   configureView() {
@@ -58,20 +59,22 @@ class IndexView extends View {
     const pageParams: IrenderView = {
       tag: 'h1',
       classNames: [CssClasses.HEADER_page],
-      textContent: `${this.name} (${this.page_total})`,
+      textContent: `${this.name} (${this.pageTotal})`,
     }
     const pageHeader = new ElementRender(pageParams) as ElementRender;
     this.elementRender.addInnerElement(pageHeader);
     const pageNum: IrenderView = {
       tag: 'p',
       classNames: [],
-      textContent: `Page ${this.page_number}`,
+      textContent: `Page ${this.pageNumber}`,
     }
     const pageNumCreate = new ElementRender(pageNum) as ElementRender;
     this.elementRender.addInnerElement(pageNumCreate);
 
-    const carListView = new CarList();
-    this.elementRender.addInnerElement(carListView.getHtmlElement() as HTMLElement);
+    const carViewList = new CarViewList(this.pageNumber,
+      this.perPage,
+      this.storage);
+    this.elementRender.addInnerElement(carViewList.getHtmlElement() as HTMLElement);
   }
 
   renderButtons() {
@@ -82,7 +85,7 @@ class IndexView extends View {
     const btnsDivCreator = new ElementRender(inputDiv) as ElementRender;
     this.elementRender.addInnerElement(btnsDivCreator);
 
-    this.btnsContent.forEach((btn) => {
+    ['race', 'update', 'generate cars'].forEach((btn) => {
       const btnParams = {
         tag: 'button',
         classNames: [CssClasses.BTN, CssClasses.BTNGreen],

@@ -1,5 +1,6 @@
 import { TagClass } from "../../models/types/types";
 import ElementRender from "../util/ElementRender";
+
 class View {
   elementRender: ElementRender;
 

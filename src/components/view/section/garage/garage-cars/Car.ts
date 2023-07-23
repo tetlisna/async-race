@@ -39,27 +39,11 @@ class Car extends View {
         this.elementRender.addInnerElement(this.header.getElement() as HTMLElement)
         this.renderHeader();
         this.renderEngineBtns();
-        this.generateCar();
+        this.renderCar();
     }
 
 
     renderHeader() {
-        const CARBTN_A: IrenderView = {
-            tag: "button",
-            classNames: [CssClasses.BTN, CssClasses.BTN_Action],
-            textContent: 'A',
-            // callback: this.btnAHandler.bind(this)
-        }
-        const BTN_A = new ElementRender(CARBTN_A);
-
-        const CARBTN_B: IrenderView = {
-            tag: "button",
-            classNames: [CssClasses.BTN, CssClasses.BTN_Action],
-            textContent: 'B',
-            // callback: this.btnBHandler.bind(this)
-        }
-        const BTN_B = new ElementRender(CARBTN_B);
-        
         if (this.header) {
             const selectBtn = new ElementRender({
                 tag: 'button',
@@ -74,15 +58,16 @@ class Car extends View {
                 callback: null
             })
 
-        const titleCreator = new ElementRender({
-            tag: "strong",
-            textContent: this.car.name,
-        })
+            const titleCreator = new ElementRender({
+                tag: "strong",
+                textContent: this.car.name,
+            })
             this.header.addInnerElement(selectBtn.getElement() as HTMLElement)
             this.header.addInnerElement(removeBtn.getElement() as HTMLElement)
             this.header.addInnerElement(titleCreator.getElement() as HTMLElement)
         }
     }
+    
     renderEngineBtns() {
         this.startBtn = new ElementRender({
             tag: 'button',
@@ -98,11 +83,23 @@ class Car extends View {
         })
     }
 
-    generateCar() {
-        const carElement = document.createElement('div');
-        carElement.classList.add('car-item');
-        carElement.innerHTML = getCarTemplate(this.car.color) + getFlagTemplate();
-        this.elementRender.addInnerElement(carElement)
+    renderCar() {
+        const carElement = new ElementRender({
+            tag: 'div',
+            classNames: [CssClasses.CAR_Item],
+        });
+        (carElement.getElement() as HTMLElement).id = `car-${this.car.id}`;
+
+        if (this.startBtn) {
+            carElement.addInnerElement(this.startBtn.getElement() as HTMLElement);
+        }
+
+        if (this.stopBtn) {
+            carElement.addInnerElement(this.stopBtn.getElement() as HTMLElement);
+        }
+        (carElement.getElement() as HTMLElement).innerHTML += getCarTemplate(this.car.color);
+        (carElement.getElement() as HTMLElement).innerHTML += getFlagTemplate();
+        this.elementRender.addInnerElement(carElement);
     }
 
     btnClickHandler(url: string) {
