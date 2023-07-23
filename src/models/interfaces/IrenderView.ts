@@ -1,5 +1,5 @@
 
-export interface IRenderElement {
+export interface IrenderView {
   tag: string;
   id?: string;
   classNames?: string[];
@@ -12,5 +12,5 @@ export interface IRenderElement {
   callback?: Function | null,
   style?: { parameter: string; value: string | number }[];
   children?:
-  IRenderElement[];
+  IrenderView[];
 }

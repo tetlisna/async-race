@@ -1,6 +1,6 @@
 import View from "../view";
 import { CssClasses } from '../../../models/types/enums';
-import { IRenderElement } from "../../../models/interfaces/IRenderElement";
+import { IrenderView } from "../../../models/interfaces/IrenderView";
 import { Pages } from "../../../models/types/types";
 
 class ButtonView extends View {
@@ -9,11 +9,9 @@ class ButtonView extends View {
     pageParam: Pages;
 
     constructor(pageParam: Pages, linkElements: ButtonView[]) {
-        const paramsBtn: IRenderElement = {
+        const paramsBtn: IrenderView = {
           tag: 'a',
           classNames: [CssClasses.BTN],
-          // textContent: pageParam.name,
-          // callback: pageParam.callback
         };
         super(paramsBtn);
         this.linkElements = linkElements;

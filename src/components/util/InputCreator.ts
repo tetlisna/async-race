@@ -1,19 +1,16 @@
-import { IRenderElement } from "../../models/interfaces/IRenderElement";
-import { ElementRender } from "./ElementRender";
+import { IrenderView } from "../../models/interfaces/IrenderView";
+import ElementRender from "./ElementRender";
 import { CssClasses } from "../../models/types/enums";
 
-export class InputCreator extends ElementRender {
-    // constructor(){
-    //     super(params)
-    // }
+class InputCreator extends ElementRender {
     inputElementText!: HTMLInputElement;
 
     inputElementColor!: HTMLInputElement;
 
     btnElement!: HTMLElement;
 
-    renderEl(params: IRenderElement) {
-        const { classNames, type, textContent, callback } = params;
+    renderView(params: IrenderView) {
+        const { classNames, textContent, callback } = params;
         this.element = document.createElement('div') as HTMLElement;
         this.inputElementText = document.createElement('input') as HTMLInputElement;
         this.inputElementText.setAttribute('type', 'text')
@@ -49,3 +46,4 @@ export class InputCreator extends ElementRender {
     }
 
 }
+export default InputCreator;

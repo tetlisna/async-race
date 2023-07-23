@@ -1,17 +1,17 @@
-import { IRenderElement } from "../../models/interfaces/IRenderElement";
+import { IrenderView} from "../../models/interfaces/IrenderView";
 
-export class ElementRender {
+class ElementRender {
     element: HTMLElement | string | null;
 
-    constructor(params: IRenderElement) {
+    constructor(params: IrenderView) {
         this.element = null;
-        this.renderEl(params);
+        this.renderView(params);
     }
 
-    renderEl(params: IRenderElement) {
+    renderView(params: IrenderView) {
         const { tag, classNames, textContent, callback } = params;
         this.element = document.createElement(tag);
-        this.setCssClasses(classNames!);
+        this.setCssClasses(classNames);
         this.setTextContent(textContent!);
         this.setCallback(callback!);
     }
@@ -42,3 +42,4 @@ export class ElementRender {
         }
     }
 } 
+export default ElementRender;

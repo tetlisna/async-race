@@ -1,6 +1,6 @@
-import { carInfo } from '../../../../models/types/types';
+import { CarInfo } from '../../../../../models/types/types';
 
-const carList: carInfo[] = [
+const carList: CarInfo[] = [
     {
         id: 1,
         name: 'tesla',

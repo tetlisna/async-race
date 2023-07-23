@@ -1,4 +1,4 @@
 export interface IAppClass {
-  renderEl(): void;
+  renderView(): void;
   createRoutes(): object[];
 }

@@ -1,36 +1,37 @@
 import '../style.scss';
 import { IAppClass } from "../models/interfaces/IAppClass";
 import { ID_SELECTOR, PagesTitle } from "../models/types/enums";
-import { HeaderView } from "./view/header/HeaderView";
-import { IndexView } from "./view/section/garage/IndexView";
-import { Section } from "./view/section/Section";
-import { Router } from './router/router';
-import { WinnersView } from './view/winner/WinnersView';
+import HeaderView from "./view/header/HeaderView";
+import IndexView from "./view/section/garage/IndexView";
+import Section from "./view/section/Section";
+import Router from './router/router';
+import WinnersView from './view/winner/WinnersView';
 import NotFound from './view/section/not found/not-found-view';
 import View from './view/view';
-import CarView from './view/section/garage-cars/Car';
-//import state from './state/state';
-export class App implements IAppClass {
+import CarView from './view/section/garage/garage-cars/Car';
+// import state from './state/state';
+class App implements IAppClass {
     router: Router;
+
     header: HeaderView | null;
+
     section: Section | null;
+
     index: IndexView | null;
 
-    // routes: Router[];
     constructor() {
         this.header = null;
-        //const state = new State();
+        // const state = new State();
         this.section = null;
         this.index = null;
         const routes = this.createRoutes();
         this.router = new Router(routes);
-        this.renderEl();
     }
 
-    renderEl() {
+    renderView() {
         this.header = new HeaderView(this.router);
         this.section = new Section();
-       // this.index = new IndexView('1');
+        // this.index = new IndexView('1');
         document.body.append(
             this.header.getHtmlElement() as HTMLElement,
             this.section.getHtmlElement() as HTMLElement,
@@ -81,3 +82,5 @@ export class App implements IAppClass {
         }
     }
 }
+
+export default App;

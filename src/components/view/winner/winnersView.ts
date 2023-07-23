@@ -1,17 +1,15 @@
-import { IRenderElement } from "../../../models/interfaces/IRenderElement";
+import { IrenderView } from "../../../models/interfaces/IrenderView";
 import { CssClasses } from "../../../models/types/enums";
-import { View } from "../view";
-//import { carList } from "../../../components/view/section/garage/carList";
-//import { CarBox } from "../section/garage/CarBox";
-//import { carInfo } from "../../../models/types/enums";
-export class WinnersView extends View {
+import  View  from "../view";
+
+class WinnersView extends View {
     // pageNumber:number;
     // winnersTotal: number;
-    constructor(id: string = '') {
+    constructor(id = '') {
         // this.pageNumber = pageNumber;
         // this.winnersTotal = winnersTotal;
 
-        const params: IRenderElement = {
+        const params: IrenderView = {
             tag: 'section',
             classNames: [CssClasses.WINNERS]
         }
@@ -21,11 +19,9 @@ export class WinnersView extends View {
 
     showAllWinners(): void {
         this.clearView();
-        // carList.forEach(car => {
-        //     const smallCardComponent = new CarBox();
-        //     this.elementRender.addInnerElement(smallCardComponent.getHtmlElement() as HTMLElement);
-        // })
+
     }
+
     clearView() {
         const element = this.elementRender.getElement() as HTMLElement;
         while (element.firstElementChild) {
@@ -34,3 +30,5 @@ export class WinnersView extends View {
     }
 
 }
+
+export default WinnersView;

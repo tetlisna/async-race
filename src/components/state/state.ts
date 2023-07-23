@@ -1,14 +1,15 @@
 const storageKey = 'exampleSpaApp';
 
 export default class State {
-    fields: any;
+    fields: Map<string, string>;
+
     constructor() {
         this.fields = this.loadState();
 
         window.addEventListener('beforeunload', this.saveState.bind(this));
     }
 
-    setField(name:string, value:string) {
+    setField(name: string, value: string) {
         this.fields.set(name, value);
     }
 

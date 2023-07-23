@@ -8,24 +8,49 @@
     box-sizing: border-box;
 }
 
-.cars-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    width: 100%;
-    gap: 2%;
-    height: 70%;
-}
-
 .input-field {
     cursor: pointer;
     background-color: aliceblue;
 }
 
-// .color-palette {
-//     display: flex;
-// }
+.car-list {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.container-car {
+    header {
+        button, strong {
+            display: inline-block;
+            margin-right: 5px;
+        }
+        strong {
+            margin-right: 0;
+            color: yellow;
+        }
+    }
+    .car-item {
+        border-bottom: 2px dotted white;
+        margin-bottom: 10px;
+        position: relative;
+        height: 44px;
+        svg {
+            position: absolute;
+            &.carTemplate {
+                left:0;
+                width: 80px;
+                height: 44px;
+            }
+            &.flagTemplate {
+                right:60px;
+                width: 80px;
+                height: 44px;
+            }
+        }
+    }
+
+}
 
 .color-box {
     width: 30px;
@@ -33,4 +58,31 @@
     margin: 5px;
     border: 1px solid #000;
     cursor: pointer;
+}
+
+.car {
+    width: 50px;
+    height: 50px;
+    top: 50px;
+    left: 50px;
+    position: absolute;
+}
+
+.car img {
+    width: 100%;
+    animation: car 1s linear infinite;
+}
+
+@keyframes car {
+    0% {
+        transform: translateY(-4px);
+    }
+
+    50% {
+        transform: translateY(0px);
+    }
+
+    100% {
+        transform: translateY(-4px);
+    }
 }

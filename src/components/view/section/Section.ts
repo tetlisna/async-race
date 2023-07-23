@@ -1,13 +1,15 @@
-import { View } from '../view';
-import { tagClass } from '../../../models/types/types';
+import View from '../view';
+import { TagClass } from '../../../models/types/types';
 
-export class Section extends View {
+class Section extends View {
     constructor() {
-        const params: tagClass = {
+        const params: TagClass = {
             tag: 'section',
+            classNames:[]
         }
         super(params);
     }
+
     setContent(content: View) {
         const element = this.elementRender.getElement() as HTMLElement;
         while (element.firstElementChild) {
@@ -16,3 +18,4 @@ export class Section extends View {
         this.elementRender.addInnerElement(content.getHtmlElement() as HTMLElement)
     }
 }
+export default Section;

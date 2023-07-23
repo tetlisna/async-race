@@ -1,9 +1,9 @@
 import HistoryRouterHandler from './history-router-handler';
-import { paramsHistory } from '../../../../models/types/types';
+import { ParamsHistory } from '../../../../models/types/types';
 import { IRouterResult } from '../../../../models/interfaces/IRouterResult';
 
 class HashRouterHandler extends HistoryRouterHandler {
-    params: paramsHistory;
+    params: ParamsHistory;
 
     constructor(callbackRouter: (params: IRouterResult) => void) {
         super(callbackRouter);

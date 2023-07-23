@@ -1,22 +1,20 @@
-import { tagClass } from "../../models/types/types";
-import { ElementRender } from "../util/ElementRender";
-import { Router } from "../router/router";
-
-export class View {
+import { TagClass } from "../../models/types/types";
+import ElementRender from "../util/ElementRender";
+class View {
   elementRender: ElementRender;
 
-  params: tagClass;
+  params: TagClass;
 
-  constructor(params: tagClass) {
+  constructor(params: TagClass) {
     this.params = params;
-    this.elementRender = this.renderEl();
+    this.elementRender = this.renderView();
   }
 
   getHtmlElement() {
     return this.elementRender.getElement();
   }
 
-  renderEl() {
+  renderView() {
     this.elementRender = new ElementRender(this.params);
     return this.elementRender;
   }

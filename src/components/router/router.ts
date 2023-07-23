@@ -2,10 +2,8 @@ import { Routes } from '../../models/types/types';
 import { PagesTitle, ID_SELECTOR } from '../../models/types/enums';
 import HistoryRouterHandler from './history/hash/history-router-handler';
 import HashRouterHandler from './history/hash/hash-router-handler';
-// import { IRouterResult } from "../../models/interfaces/IRouterResult";
-// type resultP = { path: '', resource: '' }
 
-export class Router {
+class Router {
   routes: Routes[];
 
   handler: HistoryRouterHandler | HashRouterHandler;

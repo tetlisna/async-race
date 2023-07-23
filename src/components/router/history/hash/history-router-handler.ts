@@ -1,8 +1,8 @@
 import { IRouterResult } from "../../../../models/interfaces/IRouterResult";
-import { paramsHistory } from "../../../../models/types/types";
+import { ParamsHistory } from "../../../../models/types/types";
 
 class HistoryRouterHandler {
-    params: paramsHistory;
+    params: ParamsHistory;
 
     callback: (params: IRouterResult) => void;
 

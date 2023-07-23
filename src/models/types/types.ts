@@ -1,22 +1,22 @@
-export type tagClass = {
+export type TagClass = {
     tag: string,
     classNames?: string[],
     textContent?: string
 }
 export type Pages = {
     name: string,
-    callback: Function
+    callback: Function;
 }
-export type carInfo = {
+export type CarInfo = {
     id: number,
     name: string,
     color: string
 }
-export type inputClass = {
+export type InputClass = {
     tag: string,
     classNames?: string[]
 }
-export type pagesDisplay = {
+export type PagesDisplay = {
     INDEX: string,
     WINNERS: string
 }
@@ -24,8 +24,8 @@ export type Routes = {
     path: string,
     callback: Function
 }
-export type paramsHistory = {
+export type ParamsHistory = {
     nameEvent: string,
     locationField: string
 }
-export type fieldNames = 'firstField' | 'secondField';
+export type FieldNames = 'firstField' | 'secondField';

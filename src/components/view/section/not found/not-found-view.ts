@@ -1,4 +1,4 @@
-import { View } from '../../view';
+import View from '../../view';
 import { NOT_FOUND } from '../../../../models/State';
 import { CssClasses } from '../../../../models/types/enums';
 

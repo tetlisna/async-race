@@ -1,4 +1,4 @@
-import Api from '../../../src/api/Api';
+import Api from "../../api/Api";
 import IStorage from '../interfaces/IStorage';
 
 interface IGarageItem {
