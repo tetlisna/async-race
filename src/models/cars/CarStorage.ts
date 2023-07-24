@@ -71,6 +71,7 @@ class CarStorage implements IStorage<IGarageItem> {
   async generateCars(amount = 100): Promise<void> {
     let counter = 0;
     const promises = [];
+
     while (counter < amount) {
       const car: Pick<IGarageItem, 'name' | 'color'> = {
         name: randomAutoMake(),
@@ -92,8 +93,6 @@ class CarStorage implements IStorage<IGarageItem> {
   }
 
   async create(car: Pick<IGarageItem, 'name' | 'color'>): Promise<IGarageItem> {
-    console.log(this.garage);
-
     return this.api.postRequest(JSON.stringify(car))
   }
 
@@ -108,9 +107,9 @@ class CarStorage implements IStorage<IGarageItem> {
     return this.garage[carIdx];
   }
 
-  delete(id: number): boolean {
-    console.log(this.garage);
-    return true;
+  async delete(id: number): Promise<boolean> {
+    const result = await this.api.deleteRequest(id);
+    return !!result;
   }
 }
 

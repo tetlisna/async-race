@@ -3,7 +3,7 @@ interface IStorage<T> {
   get(id: number): T | undefined;
   create(car: T): Promise<T>;
   update(id: number, car: T): T | undefined;
-  delete(id: number): boolean;
+  delete(id: number): Promise<boolean> ;
 }
 
 export default IStorage;

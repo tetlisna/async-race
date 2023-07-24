@@ -1,3 +1,4 @@
+import Router from "src/components/router/router";
 import { IrenderView } from "../../../models/interfaces/IrenderView";
 import { CssClasses } from "../../../models/types/enums";
 import  View  from "../view";
@@ -5,7 +6,7 @@ import  View  from "../view";
 class WinnersView extends View {
     // pageNumber:number;
     // winnersTotal: number;
-    constructor(id = '') {
+    constructor(router: Router, id = '') {
         // this.pageNumber = pageNumber;
         // this.winnersTotal = winnersTotal;
 

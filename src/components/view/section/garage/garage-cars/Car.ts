@@ -1,20 +1,14 @@
 import ElementRender from "src/components/util/ElementRender";
 import { Btn, CssClasses } from "../../../../../models/types/enums";
 import View from "../../../view";
-import { CarInfo, Routes } from "../../../../../models/types/types";
-import Router from "../../../../router/router";
+import { CarInfo } from "../../../../../models/types/types";
 import { IrenderView } from "../../../../../models/interfaces/IrenderView";
 import getCarTemplate from "./CarTemplate";
 import getFlagTemplate from "./FlagTemplate";
 
-interface IRouter {
-    navigate(url: string): void;
-}
 
 class Car extends View {
     car: CarInfo;
-
-    router!: IRouter;
 
     header: ElementRender | null = null;
 
@@ -22,7 +16,7 @@ class Car extends View {
 
     stopBtn: ElementRender | null = null;
 
-    constructor(car: CarInfo) {
+    constructor(car: CarInfo, public indexView: ElementRender) {
         const params: IrenderView = {
             tag: 'arcticle',
             classNames: [CssClasses.CONTAINER_Car],
@@ -30,7 +24,6 @@ class Car extends View {
         }
         super(params);
         this.car = car;
-        // this.router = router;
         this.configureView();
     }
 
@@ -41,7 +34,6 @@ class Car extends View {
         this.renderEngineBtns();
         this.renderCar();
     }
-
 
     renderHeader() {
         if (this.header) {
@@ -82,7 +74,14 @@ class Car extends View {
             callback: null
         })
     }
-
+    deleteCar(event: MouseEvent){
+        if(event.target instanceof HTMLButtonElement){
+            const deleteCarEvent = new CustomEvent('delete_car', {
+                detail: this.car.id,
+            });
+            (this.indexView.getElement() as HTMLElement).dispatchEvent(deleteCarEvent)
+        }
+    }
     renderCar() {
         const carElement = new ElementRender({
             tag: 'div',
@@ -100,10 +99,6 @@ class Car extends View {
         (carElement.getElement() as HTMLElement).innerHTML += getCarTemplate(this.car.color);
         (carElement.getElement() as HTMLElement).innerHTML += getFlagTemplate();
         this.elementRender.addInnerElement(carElement);
-    }
-
-    btnClickHandler(url: string) {
-        this.router.navigate(url)
     }
 
 }

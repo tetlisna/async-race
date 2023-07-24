@@ -38,6 +38,9 @@ class ButtonView extends View {
 
         element.addEventListener('click', this.setSelected.bind(this));
     }
+    removeCar(event:CustomEvent){
+
+    }
 
 }
 

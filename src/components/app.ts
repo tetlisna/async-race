@@ -43,25 +43,25 @@ class App implements IAppClass {
             {
                 path: ``,
                 callback: () => {
-                    this.setContent(PagesTitle.INDEX, new IndexView('1'));
+                    this.setContent(PagesTitle.INDEX, new IndexView(this.router, '1'));
                 },
             },
             {
                 path: `${PagesTitle.INDEX}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new IndexView(''));
+                    this.setContent(PagesTitle.WINNERS, new IndexView(this.router, '1'));
                 }
             },
             {
                 path: `${PagesTitle.WINNERS}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new WinnersView(id));
+                    this.setContent(PagesTitle.WINNERS, new WinnersView(this.router, id));
                 }
             },
             {
                 path: `${PagesTitle.WINNERS}/${ID_SELECTOR}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new WinnersView(id));
+                    this.setContent(PagesTitle.WINNERS, new WinnersView(this.router));
                 }
             },
             {

@@ -32,10 +32,18 @@ export enum Btn {
     SELECT = 'select',
     REMOVE = 'remove'
 }
+
 export enum Endpoint {
     url = 'http://127.0.0.1:3000'
 }
+
 export const ID_SELECTOR = '{id}';
+
+export enum FieldNames {
+    createField = 'createField',
+    updateField = 'updateField',
+    inputField  = 'inputField'
+};
 
 // export const result: RequestParams = {
 //     path: pathValue,

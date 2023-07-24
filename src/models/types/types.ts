@@ -5,7 +5,7 @@ export type TagClass = {
 }
 export type Pages = {
     name: string,
-    callback: Function;
+    callback: Callback;
 }
 export type CarInfo = {
     id: number,
@@ -28,4 +28,6 @@ export type ParamsHistory = {
     nameEvent: string,
     locationField: string
 }
-export type FieldNames = 'firstField' | 'secondField';
+export type Callback = <T>(data: T) => void;
+
+//export type FieldNames = 'createField' | 'inputField';

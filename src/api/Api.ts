@@ -13,11 +13,17 @@ class Api<T>{
   async getRequest(query = ''): Promise<T[] | T> {
     const url = `${this.endpoint}/${this.resource}${query}`;
     console.log(url, 'url');
-    
+
     const response = await fetch(url, { method: 'get' });
     const result = await response.json();
-    console.log(result);
-    
+
+    return result;
+  }
+  async deleteRequest(id: number): Promise<T[] | T> {
+    const response = await fetch(`${this.endpoint}/${this.resource}${id}`,{ 
+      method: 'delete', 
+    });
+    const result = await response.json();
     return result;
   }
 
@@ -31,7 +37,7 @@ class Api<T>{
       body: data
     });
     const result = await response.json();
-    
+
     return result;
   }
 }
