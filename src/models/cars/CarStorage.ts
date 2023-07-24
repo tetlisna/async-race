@@ -47,7 +47,7 @@ const randomColor = () => {
   if (color.length === 5) color += 'f';
   if (color.length === 4) color += 'ff';
   if (color.length === 3) color += 'fff';
-  return `${color}`
+  return `#${color}`;
 }
 
 const randomAutoMake = () => {

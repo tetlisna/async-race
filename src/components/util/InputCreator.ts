@@ -9,6 +9,10 @@ class InputCreator extends ElementRender {
 
     btnElement!: HTMLElement;
 
+    constructor(params: IrenderView, public indexView: ElementRender) {
+        super(params);
+    }
+
     renderView(params: IrenderView) {
         const { classNames, textContent, callback } = params;
         this.element = document.createElement('div') as HTMLElement;
@@ -39,6 +43,26 @@ class InputCreator extends ElementRender {
         if (typeof callback === 'function') {
             (this.element as HTMLElement).addEventListener('keyup', (event: Event) => callback(event))
         }
+
+
+        this.btnElement.addEventListener('click', (event: MouseEvent) => {
+            if (event.target instanceof HTMLButtonElement) {
+                const name = this.inputElementText.value;
+                const color = this.inputElementColor.value;
+
+                if (event.target.innerText === 'CREATE') {
+                    const createCarEvent = new CustomEvent('create_car', { detail: { name, color } });
+                    (this.indexView.getElement() as HTMLElement).dispatchEvent(createCarEvent)
+                }
+
+                if (event.target.innerText === 'select') {
+                    console.log('slect for');
+                    
+                    const createCarEvent = new CustomEvent('select_car', { detail: { name, color } });
+                    (this.indexView.getElement() as HTMLElement).dispatchEvent(createCarEvent)
+                }
+          }
+        });
     }
 
     setCssClasses(cssParam: string[]) {

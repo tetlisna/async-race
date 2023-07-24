@@ -4,6 +4,7 @@ import { IRouterResult } from '../../../../models/interfaces/IRouterResult';
 
 class HashRouterHandler extends HistoryRouterHandler {
     params: ParamsHistory;
+  /* eslint-disable class-methods-use-this */
 
     constructor(callbackRouter: (params: IRouterResult) => void) {
         super(callbackRouter);

@@ -12,18 +12,9 @@ class Api<T>{
 
   async getRequest(query = ''): Promise<T[] | T> {
     const url = `${this.endpoint}/${this.resource}${query}`;
-    console.log(url, 'url');
-
     const response = await fetch(url, { method: 'get' });
     const result = await response.json();
 
-    return result;
-  }
-  async deleteRequest(id: number): Promise<T[] | T> {
-    const response = await fetch(`${this.endpoint}/${this.resource}${id}`,{ 
-      method: 'delete', 
-    });
-    const result = await response.json();
     return result;
   }
 
@@ -40,6 +31,23 @@ class Api<T>{
 
     return result;
   }
+
+  async deleteRequest(id: number) {
+    const response = await fetch(`${this.endpoint}/${this.resource}/${id}`, {
+      method: 'delete',
+    });
+    const result = await response.json();
+    return result;
+  }
+// let searchText = document.getElementByID('searchText').value;
+// let searchBtn = document.getElementByID('searchBtn').addEventListener('click',search());
+
+// async function search(){
+//   let results = await axios.get(`http://api.giphy.com/v1/gifs/search?q=${searchText}/&api_key=dc6zaTOxFJmzC`)
+//   console.log(results);
+// }
+
+
 }
 
 export default Api;

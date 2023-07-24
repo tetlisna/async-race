@@ -1,5 +1,3 @@
-import IStorage from '../interfaces/IStorage';
-
 interface ICar {
     id: string;
 }

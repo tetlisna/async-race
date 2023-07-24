@@ -22,7 +22,7 @@ export type PagesDisplay = {
 }
 export type Routes = {
     path: string,
-    callback: Function
+    callback: (id: string) => void;
 }
 export type ParamsHistory = {
     nameEvent: string,
@@ -30,4 +30,4 @@ export type ParamsHistory = {
 }
 export type Callback = <T>(data: T) => void;
 
-//export type FieldNames = 'createField' | 'inputField';
+export type CallbackEvent = (event: MouseEvent) => void;

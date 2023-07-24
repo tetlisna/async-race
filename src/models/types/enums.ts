@@ -10,12 +10,11 @@ export enum CssClasses {
     ACTIVE = 'active',
     BTNBlue = 'btn-blue',
     BTNGreen = 'btn-green',
-    CONTAINER_input = 'container-input',
+    CONTAINER_Btns = 'container-btns',
     CAR_List = 'car-list',
     CONTAINER_Car = 'container-car',
     CAR_Item = 'car-item',
-    INPUT = 'input-field',
-    INPUT_Update = 'input-update',
+    INPUT = 'input',
     ERROR = 'not-found'
 }
 export enum PagesTitle {
@@ -43,7 +42,7 @@ export enum FieldNames {
     createField = 'createField',
     updateField = 'updateField',
     inputField  = 'inputField'
-};
+}
 
 // export const result: RequestParams = {
 //     path: pathValue,

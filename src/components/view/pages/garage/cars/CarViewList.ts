@@ -1,12 +1,12 @@
 import '../garage.scss';
 import Router from "src/components/router/router";
 import CarStorage from "src/models/cars/CarStorage";
+import ElementRender from 'src/components/util/ElementRender';
 import View from "../../../view";
 import Car from "./Car";
 import { CssClasses } from "../../../../../models/types/enums"
 import { IrenderView } from "../../../../../models/interfaces/IrenderView";
 import { CarInfo } from "../../../../../models/types/types";
-import ElementRender from 'src/components/util/ElementRender';
 
 class CarViewList extends View {
     carList: CarInfo[] = [];
@@ -15,10 +15,10 @@ class CarViewList extends View {
         public pageNumber: number,
         public perPage: number,
         public storage: CarStorage,
-        public router:Router,
+        public router: Router,
         public IndexView: ElementRender
     ) {
-        
+
         const params: IrenderView = {
             tag: 'div',
             classNames: [CssClasses.CAR_List]

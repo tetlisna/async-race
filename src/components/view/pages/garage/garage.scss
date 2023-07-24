@@ -8,15 +8,9 @@
     box-sizing: border-box;
 }
 
-.input-field {
-    cursor: pointer;
-    background-color: aliceblue;
-}
-
 .car-list {
     display: flex;
     flex-direction: column;
-    
 }
 
 .container-car {
@@ -45,7 +39,6 @@
             padding: 3px 6px;
             margin-right: 5px;
             opacity: 0.5;
-
             &.active {
                 opacity: 1;
                 &.btn-start {
@@ -69,14 +62,6 @@
         }
     }
     
-}
-
-.color-box {
-    width: 30px;
-    height: 30px;
-    margin: 5px;
-    border: 1px solid #000;
-    cursor: pointer;
 }
 
 

@@ -4,10 +4,10 @@ import "./garage.scss";
 import ElementRender from '../../../util/ElementRender';
 import InputCreator from '../../../util/InputCreator';
 import View from '../../view';
-import CarViewList from './garage-cars/CarViewList';
+import CarViewList from './cars/CarViewList';
 import { CssClasses, Btn, PagesTitle } from '../../../../models/types/enums';
-//import { FieldNames } from '../../../../models/types/types';
 import { IrenderView } from '../../../../models/interfaces/IrenderView';
+
 type FieldNames = 'createField' | 'updateField';
 
 class IndexView extends View {
@@ -16,10 +16,15 @@ class IndexView extends View {
     {
       name: 'createField',
       textContent: Btn.CREATE,
+      callback: (event: MouseEvent) =>{
+        console.log('click create');
+        
+      this.clickHandler(event, 'createField')},
     },
     {
       name: 'updateField',
       textContent: Btn.UPDATE,
+      callback:null
     },
   ];
 
@@ -47,11 +52,11 @@ class IndexView extends View {
       classNames: [CssClasses.GARAGE],
     }
     super(params);
+
     this.pageNumber = +page;
     this.storage = new CarStorage();
     this.configureView();
     this.eventListeners();
-
   }
 
   async configureView() {
@@ -83,13 +88,13 @@ class IndexView extends View {
       this.elementRender
     );
     this.elementRender.addInnerElement(carViewList.getHtmlElement() as HTMLElement);
-    this.renderNavigationButtons()
+    this.renderNavigationButtons();
   }
 
   renderButtons() {
     const inputDiv = {
       tag: 'div',
-      classNames: [CssClasses.CONTAINER_input],
+      classNames: [CssClasses.CONTAINER_Btns],
     };
     const btnsDivCreator = new ElementRender(inputDiv) as ElementRender;
     this.elementRender.addInnerElement(btnsDivCreator);
@@ -107,7 +112,8 @@ class IndexView extends View {
     });
   }
 
-  renderNavigationButtons(): void {
+  private renderNavigationButtons(): void {
+
     if (this.pageTotal === 1) {
       return;
     }
@@ -119,11 +125,10 @@ class IndexView extends View {
         tag: 'button',
         classNames: ['prev-btn'],
         textContent: 'Previous',
-        callback: (event: MouseEvent) => this.navigationHandler(event, 'prev')
+        callback: (event: MouseEvent) => this.navigationHandler(event, 'prev'),
       }) as ElementRender;
       footer.addInnerElement(prevBtn)
     }
-
     if (this.pageTotal !== this.pageNumber) {
       const nextBtn = new ElementRender({
         tag: 'button',
@@ -133,42 +138,37 @@ class IndexView extends View {
       }) as ElementRender;
       footer.addInnerElement(nextBtn)
     }
-
   }
 
   renderInputFields() {
     this.inputFields.forEach((inputField) => {
       const inputParams: IrenderView = {
         tag: 'input',
-        classNames: [],
+        classNames: [CssClasses.INPUT],
         textContent: inputField.textContent,
         callback: (event: MouseEvent) =>
           this.clickHandler(event, inputField.name as FieldNames),
       };
-      const inputCreator = new InputCreator(inputParams) as ElementRender;
+      const inputCreator = new InputCreator(inputParams, this.elementRender) as ElementRender;
       this.elementRender.addInnerElement(inputCreator);
     });
   }
 
-  // setContent(view: View) {
-  //   const element = this.elementRender.getElement() as HTMLElement;
-  //   const currEl = this.elementRender.getElement() as HTMLElement;
-  //   while (currEl.firstElementChild) {
-  //     currEl.firstElementChild.remove();
-  //   }
-  //   this.elementRender.addInnerElement(element)
-  // }
-
-
-
   clickHandler(event: MouseEvent, fieldName: FieldNames) {
     if (event.target instanceof HTMLButtonElement) {
       this as IndexView;
-      if (event.target.innerText === 'generate cars') {
+
+      if (event.target.innerText === 'GENERATE CARS') {
         this.storage.generateCars().then(() => {
-          this.router.navigate(this.url)
+          this.router.navigate(this.url);
         });
       }
+      
+  
+    }
+
+    if (event.target instanceof HTMLInputElement) {
+      this as IndexView;
       this[fieldName] = event.target.value;
     }
   }
@@ -182,19 +182,37 @@ class IndexView extends View {
     const url = `${PagesTitle.INDEX}/${this.pageNumber}`;
     this.router.navigate(url);
   }
-  
+
   eventListeners() {
     (this.elementRender.getElement() as HTMLElement).addEventListener(
       'delete_car',
       this.removeCar.bind(this) as EventListener
-    )
+    );
+
+    (this.elementRender.getElement() as HTMLElement).addEventListener(
+      'create_car',
+      this.createCar.bind(this) as EventListener
+    );
+
+    (this.elementRender.getElement() as HTMLElement).addEventListener(
+      'select_car',
+      this.createCar.bind(this) as EventListener
+    );
   }
 
   removeCar(event: CustomEvent) {
     this.storage.delete(event.detail).then(() => {
-      this.router.navigate(this.url)
-    })
+      this.router.navigate(this.url);
+    });
+  }
 
+  createCar(event: CustomEvent) {
+    console.log('event.detail', event.detail);
+    
+
+    this.storage.create(event.detail).then(() => {
+      this.router.navigate(this.url);
+    });
   }
 }
 export default IndexView;

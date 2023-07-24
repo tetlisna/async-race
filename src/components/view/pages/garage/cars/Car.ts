@@ -41,13 +41,13 @@ class Car extends View {
                 tag: 'button',
                 classNames: [CssClasses.BTN_Action],
                 textContent: Btn.SELECT,
-                callback: null
+                callback: (event: MouseEvent) => this.selectCar(event)
             })
             const removeBtn = new ElementRender({
                 tag: 'button',
                 classNames: [CssClasses.BTN_Action],
                 textContent: Btn.REMOVE,
-                callback: null
+                callback: (event: MouseEvent) => this.deleteCar(event),
             })
 
             const titleCreator = new ElementRender({
@@ -59,7 +59,7 @@ class Car extends View {
             this.header.addInnerElement(titleCreator.getElement() as HTMLElement)
         }
     }
-    
+
     renderEngineBtns() {
         this.startBtn = new ElementRender({
             tag: 'button',
@@ -74,14 +74,25 @@ class Car extends View {
             callback: null
         })
     }
-    deleteCar(event: MouseEvent){
-        if(event.target instanceof HTMLButtonElement){
+
+    deleteCar(event: MouseEvent) {
+        if (event.target instanceof HTMLButtonElement) {
             const deleteCarEvent = new CustomEvent('delete_car', {
                 detail: this.car.id,
             });
             (this.indexView.getElement() as HTMLElement).dispatchEvent(deleteCarEvent)
         }
     }
+
+    selectCar(event: MouseEvent){
+        if (event.target instanceof HTMLButtonElement) {
+            const selectCarEvent = new CustomEvent('select_car', {
+                detail: this.car.id,
+            });
+            (this.indexView.getElement() as HTMLElement).dispatchEvent(selectCarEvent)
+        }
+    }
+
     renderCar() {
         const carElement = new ElementRender({
             tag: 'div',

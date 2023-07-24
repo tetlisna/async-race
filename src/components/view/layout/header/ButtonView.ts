@@ -1,7 +1,7 @@
-import View from "../view";
-import { CssClasses } from '../../../models/types/enums';
-import { IrenderView } from "../../../models/interfaces/IrenderView";
-import { Pages } from "../../../models/types/types";
+import View from "../../view";
+import { CssClasses } from '../../../../models/types/enums';
+import { IrenderView } from "../../../../models/interfaces/IrenderView";
+import { Pages } from "../../../../models/types/types";
 
 class ButtonView extends View {
     linkElements: ButtonView[];
@@ -10,8 +10,8 @@ class ButtonView extends View {
 
     constructor(pageParam: Pages, linkElements: ButtonView[]) {
         const paramsBtn: IrenderView = {
-          tag: 'a',
-          classNames: [CssClasses.BTN],
+            tag: 'a',
+            classNames: [CssClasses.BTN],
         };
         super(paramsBtn);
         this.linkElements = linkElements;
@@ -37,9 +37,6 @@ class ButtonView extends View {
         const element = this.elementRender.getElement() as HTMLElement;
 
         element.addEventListener('click', this.setSelected.bind(this));
-    }
-    removeCar(event:CustomEvent){
-
     }
 
 }

@@ -1,15 +1,15 @@
 import '../style.scss';
 import { IAppClass } from "../models/interfaces/IAppClass";
 import { ID_SELECTOR, PagesTitle } from "../models/types/enums";
-import HeaderView from "./view/header/HeaderView";
-import IndexView from "./view/section/garage/IndexView";
-import Section from "./view/section/Section";
+import HeaderView from "./view/layout/header/HeaderView";
+import IndexView from "./view/pages/garage/IndexView";
+import Section from "./view/layout/section/Section";
 import Router from './router/router';
-import WinnersView from './view/winner/WinnersView';
-import NotFound from './view/section/not found/not-found-view';
+import WinnersView from './view/pages/winner/WinnersView';
+import NotFound from './view/pages/not found/not-found-view';
 import View from './view/view';
-import CarView from './view/section/garage/garage-cars/Car';
-// import state from './state/state';
+import State from './state/state';
+
 class App implements IAppClass {
     router: Router;
 
@@ -21,7 +21,7 @@ class App implements IAppClass {
 
     constructor() {
         this.header = null;
-        // const state = new State();
+        const state = new State();
         this.section = null;
         this.index = null;
         const routes = this.createRoutes();
@@ -31,7 +31,6 @@ class App implements IAppClass {
     renderView() {
         this.header = new HeaderView(this.router);
         this.section = new Section();
-        // this.index = new IndexView('1');
         document.body.append(
             this.header.getHtmlElement() as HTMLElement,
             this.section.getHtmlElement() as HTMLElement,
@@ -49,19 +48,25 @@ class App implements IAppClass {
             {
                 path: `${PagesTitle.INDEX}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new IndexView(this.router, '1'));
+                    this.setContent(PagesTitle.INDEX, new IndexView(this.router, '1'));
+                }
+            },
+            {
+                path: `${PagesTitle.INDEX}/${ID_SELECTOR}`,
+                callback: (id: string): void => {
+                    this.setContent(PagesTitle.INDEX, new IndexView(this.router, id));
                 }
             },
             {
                 path: `${PagesTitle.WINNERS}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new WinnersView(this.router, id));
+                    this.setContent(PagesTitle.WINNERS, new WinnersView(id));
                 }
             },
             {
                 path: `${PagesTitle.WINNERS}/${ID_SELECTOR}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new WinnersView(this.router));
+                    this.setContent(PagesTitle.WINNERS, new WinnersView(id));
                 }
             },
             {

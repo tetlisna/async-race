@@ -2,6 +2,7 @@ const storageKey = 'exampleSpaApp';
 
 export default class State {
     fields: Map<string, string>;
+  /* eslint-disable class-methods-use-this */
 
     constructor() {
         this.fields = this.loadState();

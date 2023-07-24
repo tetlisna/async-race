@@ -1,0 +1,9 @@
+.header {
+    height: 10%;
+    box-sizing: border-box;
+    .nav {
+        display: flex;
+        flex-direction: row;
+        padding: 40px;
+    }
+}

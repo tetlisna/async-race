@@ -1,4 +1,4 @@
-$var-bg-color: #000;
+$var-bg-color: #53459e;
 $var-text-color: #fff;
 
 :root {
@@ -16,21 +16,21 @@ body {
     color: $var-text-color;
 }
 
-.container-input {
+.container-btns {
     display: flex;
-    width: 100%;
 }
 
 .btn {
     border: 2px solid #fff;
-    padding: 10px;
-    margin: 10px 5px;
+    padding: 5px 5px;
+    margin-right: 5px;
+    margin-top: 10px;
     text-transform: uppercase;
     transition-duration: 0.4s;
-    background-color: rgb(60, 120, 140);
+    background-color: rgb(160, 170, 247);
     
     &:hover {
-        color: rgb(99, 187, 51);
+        color:#53459e;
         cursor: pointer;
     }
     &.btn-selected {
@@ -40,9 +40,20 @@ body {
 
 .btn-green {
     width: 100px;
-    background-color: lightgreen;
+    background-color: rgb(158, 239, 52);
     text-transform: uppercase;
 }
 .header-page {
     color:#fff;
 }
+
+input[type=text]{
+    margin-right: 5px;
+
+}
+input[type=color]{
+    margin: 0 20px;
+    padding: 0;
+    transform: translateY(5px);
+}
+

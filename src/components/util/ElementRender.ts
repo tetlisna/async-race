@@ -9,11 +9,13 @@ class ElementRender {
     }
 
     renderView(params: IrenderView) {
-        const { tag, classNames, textContent, callback } = params;
+        const { tag, classNames = [], textContent = '', callback } = params;
         this.element = document.createElement(tag);
         this.setCssClasses(classNames);
-        this.setTextContent(textContent!);
-        this.setCallback(callback!);
+        this.setTextContent(textContent);
+        if (callback) {
+            this.setCallback(callback);
+        }
     }
 
     setCssClasses(CssClasses: string[] = []) {

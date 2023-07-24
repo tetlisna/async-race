@@ -1,11 +1,11 @@
-import View from '../view';
-import { TagClass } from '../../../models/types/types';
+import View from '../../view';
+import { TagClass } from '../../../../models/types/types';
 
 class Section extends View {
     constructor() {
         const params: TagClass = {
             tag: 'section',
-            classNames:[]
+            classNames: []
         }
         super(params);
     }
