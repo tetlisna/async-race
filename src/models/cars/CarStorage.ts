@@ -1,7 +1,7 @@
 import Api from "../../api/Api";
 import IStorage from '../interfaces/IStorage';
 
-interface IGarageItem {
+export interface IGarageItem {
   name: string;
   color: string;
   id: number;
@@ -78,8 +78,8 @@ class CarStorage implements IStorage<IGarageItem> {
         color: randomColor(),
       }
       promises.push(this.create(car))
-  
-    counter += 1;
+
+      counter += 1;
     }
     await Promise.all(promises);
   }
@@ -88,23 +88,17 @@ class CarStorage implements IStorage<IGarageItem> {
     return this.api.getRequest(query) as Promise<IGarageItem[]>;
   }
 
-  get(id: number): IGarageItem | undefined {
-    return this.garage.find((car) => car.id === id);
+  async get(id: number): Promise<IGarageItem | undefined> {
+    return this.api.getRequest(`/${id}`) as Promise<IGarageItem>;
   }
 
   async create(car: Pick<IGarageItem, 'name' | 'color'>): Promise<IGarageItem> {
-    return this.api.postRequest(JSON.stringify(car))
+    return this.api.postRequest(JSON.stringify(car));
   }
 
-  update(id: number, data: IGarageItem): IGarageItem | undefined {
-    const carIdx = this.garage.findIndex(car => car.id === id);
-
-    if (carIdx === -1) {
-      return undefined;
-    }
-
-    this.garage[carIdx] = data;
-    return this.garage[carIdx];
+  async update(id: number, car: Pick<IGarageItem, 'name' | 'color'>): Promise<IGarageItem | undefined> {
+    const result = this.api.updateRequest(id, JSON.stringify(car)) as Promise<IGarageItem>;
+    return result;
   }
 
   async delete(id: number): Promise<boolean> {

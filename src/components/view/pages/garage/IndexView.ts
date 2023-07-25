@@ -7,6 +7,7 @@ import View from '../../view';
 import CarViewList from './cars/CarViewList';
 import { CssClasses, Btn, PagesTitle } from '../../../../models/types/enums';
 import { IrenderView } from '../../../../models/interfaces/IrenderView';
+import { IGarageItem } from 'src/models/cars/CarStorage';
 
 type FieldNames = 'createField' | 'updateField';
 
@@ -17,16 +18,17 @@ class IndexView extends View {
       name: 'createField',
       textContent: Btn.CREATE,
       callback: (event: MouseEvent) =>{
-        console.log('click create');
-        
       this.clickHandler(event, 'createField')},
     },
     {
       name: 'updateField',
       textContent: Btn.UPDATE,
-      callback:null
+      callback:(event: MouseEvent) =>{
+      this.clickHandler(event, 'updateField')},
     },
   ];
+
+  updateInput: InputCreator | null;
 
   name = 'Garage';
 
@@ -53,6 +55,7 @@ class IndexView extends View {
     }
     super(params);
 
+    this.updateInput = null;
     this.pageNumber = +page;
     this.storage = new CarStorage();
     this.configureView();
@@ -149,8 +152,12 @@ class IndexView extends View {
         callback: (event: MouseEvent) =>
           this.clickHandler(event, inputField.name as FieldNames),
       };
-      const inputCreator = new InputCreator(inputParams, this.elementRender) as ElementRender;
-      this.elementRender.addInnerElement(inputCreator);
+      const inputCreator = new InputCreator(inputParams, this.elementRender)
+      if(inputField.name === 'updateField') {
+        this.updateInput = inputCreator;
+
+      }
+      this.elementRender.addInnerElement(inputCreator as ElementRender);
     });
   }
 
@@ -163,7 +170,6 @@ class IndexView extends View {
           this.router.navigate(this.url);
         });
       }
-      
   
     }
 
@@ -196,7 +202,12 @@ class IndexView extends View {
 
     (this.elementRender.getElement() as HTMLElement).addEventListener(
       'select_car',
-      this.createCar.bind(this) as EventListener
+      this.selectCar.bind(this) as EventListener
+    );
+
+    (this.elementRender.getElement() as HTMLElement).addEventListener(
+      'update_car',
+      this.updateCar.bind(this) as EventListener
     );
   }
 
@@ -207,10 +218,23 @@ class IndexView extends View {
   }
 
   createCar(event: CustomEvent) {
-    console.log('event.detail', event.detail);
-    
-
     this.storage.create(event.detail).then(() => {
+      this.router.navigate(this.url);
+    });
+  }
+
+  selectCar(event: CustomEvent) {
+    console.log('vsdkjvkdsbkvbsdkjbkdjsvkbsajb');
+    
+    this.storage.get(event.detail).then((result) => {
+      const {id, name, color} = result as IGarageItem;
+      this.updateInput!.setValueToUpdate(id, color, name);
+    });
+  }
+
+  updateCar(event: CustomEvent){
+    const {id, name, color} = event.detail;
+    this.storage.update(id, {name, color}).then((result) => {
       this.router.navigate(this.url);
     });
   }

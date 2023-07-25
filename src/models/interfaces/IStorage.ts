@@ -1,8 +1,8 @@
 interface IStorage<T> {
   getAll(): Promise<T[]>;
-  get(id: number): T | undefined;
+  get(id: number): Promise<T | undefined>;
   create(car: T): Promise<T>;
-  update(id: number, car: T): T | undefined;
+  update(id: number, data: T): Promise<T | undefined>;
   delete(id: number): Promise<boolean> ;
 }
 

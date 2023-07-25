@@ -9,8 +9,12 @@ class InputCreator extends ElementRender {
 
     btnElement!: HTMLElement;
 
+    idToUpdate: number | null;
+
+
     constructor(params: IrenderView, public indexView: ElementRender) {
         super(params);
+        this.idToUpdate = null;
     }
 
     renderView(params: IrenderView) {
@@ -44,7 +48,6 @@ class InputCreator extends ElementRender {
             (this.element as HTMLElement).addEventListener('keyup', (event: Event) => callback(event))
         }
 
-
         this.btnElement.addEventListener('click', (event: MouseEvent) => {
             if (event.target instanceof HTMLButtonElement) {
                 const name = this.inputElementText.value;
@@ -55,19 +58,25 @@ class InputCreator extends ElementRender {
                     (this.indexView.getElement() as HTMLElement).dispatchEvent(createCarEvent)
                 }
 
-                if (event.target.innerText === 'select') {
-                    console.log('slect for');
-                    
-                    const createCarEvent = new CustomEvent('select_car', { detail: { name, color } });
+                if (event.target.innerText === 'UPDATE') {
+                    const createCarEvent = new CustomEvent('update_car', { detail: { id: this.idToUpdate, name, color } });
                     (this.indexView.getElement() as HTMLElement).dispatchEvent(createCarEvent)
                 }
-          }
+            }
         });
     }
+    setValueToUpdate(id: number, color: string, name: string) {
+        this.idToUpdate = id;
+        this.inputElementText.value = name;
+        this.inputElementColor.value = color;
 
+        console.log('kjbvkjbdkjfcajksbkasbh');
+        
+    }
     setCssClasses(cssParam: string[]) {
         cssParam.forEach((className): void => (this.element as HTMLElement).classList.add(CssClasses.INPUT))
     }
+
 
 }
 export default InputCreator;
