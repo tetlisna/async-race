@@ -1,12 +1,13 @@
-(() => {
+function animate (){
+    console.log();
+    
     let start: number,
         stopId: number,
         progress: number;
 
     let toggle: boolean = false;
 
-    const carSelected = document.getElementById('element') as HTMLElement
-    ;
+    const carSelected = document.getElementById('element') as HTMLElement;
     carSelected.setAttribute("style",
         "background: blue; position: absolute; width: 50px; height: 50px; top: 50px;");
 
@@ -27,5 +28,4 @@
         }
     }
 
-
-})()
+}

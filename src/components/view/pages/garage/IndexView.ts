@@ -8,6 +8,7 @@ import CarViewList from './cars/CarViewList';
 import { CssClasses, Btn, PagesTitle } from '../../../../models/types/enums';
 import { IrenderView } from '../../../../models/interfaces/IrenderView';
 import { IGarageItem } from 'src/models/cars/CarStorage';
+import EngineStorage from 'src/models/cars/EngineStorage';
 
 type FieldNames = 'createField' | 'updateField';
 
@@ -17,14 +18,16 @@ class IndexView extends View {
     {
       name: 'createField',
       textContent: Btn.CREATE,
-      callback: (event: MouseEvent) =>{
-      this.clickHandler(event, 'createField')},
+      callback: (event: MouseEvent) => {
+        this.clickHandler(event, 'createField')
+      },
     },
     {
       name: 'updateField',
       textContent: Btn.UPDATE,
-      callback:(event: MouseEvent) =>{
-      this.clickHandler(event, 'updateField')},
+      callback: (event: MouseEvent) => {
+        this.clickHandler(event, 'updateField')
+      },
     },
   ];
 
@@ -35,6 +38,8 @@ class IndexView extends View {
   createField = '';
 
   updateField = '';
+
+  raceField = '';
 
   url: string = (window as Window).location.pathname.slice(1);
 
@@ -48,6 +53,8 @@ class IndexView extends View {
 
   storage: CarStorage;
 
+  storageEngine: EngineStorage;
+
   constructor(public router: Router, public page: string) {
     const params: IrenderView = {
       tag: 'section',
@@ -58,6 +65,7 @@ class IndexView extends View {
     this.updateInput = null;
     this.pageNumber = +page;
     this.storage = new CarStorage();
+    this.storageEngine = new EngineStorage();
     this.configureView();
     this.eventListeners();
   }
@@ -153,9 +161,8 @@ class IndexView extends View {
           this.clickHandler(event, inputField.name as FieldNames),
       };
       const inputCreator = new InputCreator(inputParams, this.elementRender)
-      if(inputField.name === 'updateField') {
+      if (inputField.name === 'updateField') {
         this.updateInput = inputCreator;
-
       }
       this.elementRender.addInnerElement(inputCreator as ElementRender);
     });
@@ -170,7 +177,16 @@ class IndexView extends View {
           this.router.navigate(this.url);
         });
       }
-  
+      if (event.target.innerText === 'RACE') {
+        //const { id } = event.detail;
+console.log(fieldName, 'fieldName');
+
+        // this.storageEngine.toggleAnimation(id).then(() => {
+        //   this.router.navigate(this.url);
+        // });
+
+      }
+
     }
 
     if (event.target instanceof HTMLInputElement) {
@@ -224,17 +240,15 @@ class IndexView extends View {
   }
 
   selectCar(event: CustomEvent) {
-    console.log('vsdkjvkdsbkvbsdkjbkdjsvkbsajb');
-    
     this.storage.get(event.detail).then((result) => {
-      const {id, name, color} = result as IGarageItem;
+      const { id, name, color } = result as IGarageItem;
       this.updateInput!.setValueToUpdate(id, color, name);
     });
   }
 
-  updateCar(event: CustomEvent){
-    const {id, name, color} = event.detail;
-    this.storage.update(id, {name, color}).then((result) => {
+  updateCar(event: CustomEvent) {
+    const { id, name, color } = event.detail;
+    this.storage.update(id, { name, color }).then((result) => {
       this.router.navigate(this.url);
     });
   }

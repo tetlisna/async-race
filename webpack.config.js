@@ -25,10 +25,12 @@ module.exports = {
   
   output: {
     path: path.resolve(__dirname, 'dist'),
+    //path: path.join(__dirname, 'dist'),
     clean: true,
     filename: '[name].[contenthash].js',
     assetModuleFilename: 'assets/[hash][ext]',
-    publicPath:'/',
+    publicPath:'/async-race',
+   //  publicPath:'/',
   },
   plugins: [
     new HtmlWebpackPlugin({

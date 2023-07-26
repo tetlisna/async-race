@@ -33,7 +33,8 @@ export enum Btn {
 }
 
 export enum Endpoint {
-    url = 'http://127.0.0.1:3000'
+    url = 'http://127.0.0.1:3000',
+    url2 = 'http://127.0.0.1:3000'
 }
 
 export const ID_SELECTOR = '{id}';

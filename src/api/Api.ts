@@ -33,7 +33,6 @@ class Api<T>{
   }
   async updateRequest(id: number, data: string) {
     const url = `${this.endpoint}/${this.resource}/${id}`;
-    console.log(url,"url");
     const response = await fetch(url, {
       method: 'put',
       headers: {
@@ -44,6 +43,31 @@ class Api<T>{
     const result = await response.json();
 
     return result;
+  }
+  async raceRequest(id: number, status: string) {
+    const url = `${this.endpoint}/${this.resource}/?id=${id}&status=${status}`;
+    console.log(url);
+    try {
+      const response = await fetch(url, {
+        method: 'patch'
+      });
+      const result = await response.json();
+      return result;
+    } catch (err) {}
+    // return fetch(url, {
+    //   method: 'patch'
+    // }).then((response) => response.json())
+    //   .then((json) => (json))
+    //   .catch((err) => console.error(err));
+    // try {
+    //   const response = await fetch(url, {
+    //     method: 'patch'
+    //   });
+    //   const result = await response.json();
+    //   return result;
+    // } catch (err) {
+
+    // }
   }
 
   async deleteRequest(id: number) {

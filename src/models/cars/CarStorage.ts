@@ -85,6 +85,7 @@ class CarStorage implements IStorage<IGarageItem> {
   }
 
   async getAll(query = ''): Promise<IGarageItem[]> {
+    // let count = response.headers.get('X-Total-Count'); return {count, this.api.getRequest(query) as Promise<IGarageItem[]>}
     return this.api.getRequest(query) as Promise<IGarageItem[]>;
   }
 

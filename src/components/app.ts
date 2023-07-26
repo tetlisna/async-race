@@ -60,13 +60,13 @@ class App implements IAppClass {
             {
                 path: `${PagesTitle.WINNERS}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new WinnersView(id));
+                    this.setContent(PagesTitle.WINNERS, new WinnersView(this.router, id));
                 }
             },
             {
                 path: `${PagesTitle.WINNERS}/${ID_SELECTOR}`,
                 callback: (id: string): void => {
-                    this.setContent(PagesTitle.WINNERS, new WinnersView(id));
+                    this.setContent(PagesTitle.WINNERS, new WinnersView(this.router, id));
                 }
             },
             {
