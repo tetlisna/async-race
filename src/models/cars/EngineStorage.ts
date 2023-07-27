@@ -20,13 +20,13 @@ class EngineStorage {
   }
 
   async race(id: number, status: EngineStatus): Promise<IEngineItem | undefined>  {
-    console.log(status, 'race function');
-    const result = await this.api.raceRequest(id, status) as Promise<IEngineItem>;
+    const result = await this.api.raceRequest(id, status) as unknown as Promise<IEngineItem>;
+    console.log(result, 'race function');
     
     return result;
   }
 
-  async animate(id:string) {
+  async animationStart(id:string) {
     let start: number,
         stopId: number,
         progress: number;

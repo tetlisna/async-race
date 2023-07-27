@@ -15,15 +15,19 @@
 
 .container-car {
     header {
-        button, strong {
+
+        button,
+        strong {
             display: inline-block;
             margin-right: 5px;
         }
+
         strong {
             margin-right: 0;
             color: yellow;
         }
     }
+
     .car-item {
         border-bottom: 2px dotted white;
         margin-bottom: 10px;
@@ -39,29 +43,37 @@
             padding: 3px 6px;
             margin-right: 5px;
             opacity: 0.5;
+
             &.active {
                 opacity: 1;
+
                 &.btn-start {
                     color: rgb(76, 175, 0);
                     border-color: rgb(76, 175, 0);
                 }
             }
         }
-        svg {
+
+        .carBox {
             position: absolute;
-            &.carTemplate {
-                left:60px;
-                width: 80px;
-                height: 44px;
-            }
-            &.flagTemplate {
-                right:60px;
+            left: 0;
+            width: 80px;
+            height: 44px;
+
+            .carTemplate {
                 width: 80px;
                 height: 44px;
             }
         }
+
+        svg.flagTemplate {
+            position: absolute;
+            right: 60px;
+            width: 80px;
+            height: 44px;
+        }
     }
-    
+
 }
 
 

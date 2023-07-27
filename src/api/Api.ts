@@ -45,29 +45,13 @@ class Api<T>{
     return result;
   }
   async raceRequest(id: number, status: string) {
-    const url = `${this.endpoint}/${this.resource}/?id=${id}&status=${status}`;
-    console.log(url);
-    try {
-      const response = await fetch(url, {
-        method: 'patch'
-      });
-      const result = await response.json();
-      return result;
-    } catch (err) {}
-    // return fetch(url, {
-    //   method: 'patch'
-    // }).then((response) => response.json())
-    //   .then((json) => (json))
-    //   .catch((err) => console.error(err));
-    // try {
-    //   const response = await fetch(url, {
-    //     method: 'patch'
-    //   });
-    //   const result = await response.json();
-    //   return result;
-    // } catch (err) {
-
-    // }
+    const url = `${this.endpoint}/${this.resource}?id=${id}&status=${status}`;
+    return fetch(url, {
+      method: 'PATCH',
+      redirect: 'follow'
+    }).then(response => response.text())
+    .then(result => result)
+    .catch(error => console.log('error', error));
   }
 
   async deleteRequest(id: number) {

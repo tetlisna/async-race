@@ -1,7 +1,7 @@
 import ElementRender from "src/components/util/ElementRender";
 import { Btn, CssClasses } from "../../../../../models/types/enums";
 import View from "../../../view";
-import { CarInfo } from "../../../../../models/types/types";
+import { Callback, CarInfo } from "../../../../../models/types/types";
 import { IrenderView } from "../../../../../models/interfaces/IrenderView";
 import getCarTemplate from "./CarTemplate";
 import getFlagTemplate from "./FlagTemplate";
@@ -18,6 +18,8 @@ class Car extends View {
 
     id: number;
 
+    carItem: ElementRender | null;
+
     storageEngine: EngineStorage;
 
     constructor(car: CarInfo, public indexView: ElementRender) {
@@ -29,6 +31,7 @@ class Car extends View {
         super(params);
         this.car = car;
         this.id = car.id;
+        this.carItem = null;
         this.storageEngine = new EngineStorage();
         this.configureView();
     }
@@ -79,10 +82,11 @@ class Car extends View {
         }
     }
 
-    carControlHandler(event: MouseEvent) {
-        
-        this.storageEngine.race(this.id, 'started')
-        //console.log('this.id', this.storageEngine.race);
+    async carControlHandler(event: MouseEvent) {
+        const engineParams = await this.storageEngine.race(this.id, 'started')
+        const paramsJson = JSON.parse(engineParams as unknown as string);
+        const { velocity, distance } = paramsJson;
+        this.startEngine(velocity, distance)
     }
 
     deleteCar(event: MouseEvent) {
@@ -109,31 +113,41 @@ class Car extends View {
             classNames: [CssClasses.CAR_Item],
         });
         (carElement.getElement() as HTMLElement).id = `car-${this.car.id}`;
-        (carElement.getElement() as HTMLElement).innerHTML += getCarTemplate(this.car.color);
-        (carElement.getElement() as HTMLElement).innerHTML += getFlagTemplate();
-        this.elementRender.addInnerElement(carElement);
-    }
 
-    startEngine(event: MouseEvent) {
+        const carBoxElement = new ElementRender({
+            tag: 'div',
+            classNames: ['carBox'],
+        });
+        (carBoxElement.getElement() as HTMLElement).innerHTML += getCarTemplate(this.car.color);
+        // (carBoxElement.getElement() as HTMLElement).innerHTML += getFlagTemplate();
+
+        // (carElement.getElement() as HTMLElement).innerHTML += getCarTemplate(this.car.color);
+        (carElement.getElement() as HTMLElement).innerHTML += getFlagTemplate();
+
+        carElement.addInnerElement(carBoxElement);
+        this.elementRender.addInnerElement(carElement);
+        this.carItem = carBoxElement;
+    }
+    driveCar(id: number, velocity: number, distance: number) {
+        //     this.startEngine(id, velocity, cb)
+
+    }
+    startEngine(velocity: number, distance: number) {
         let start: number,
             stopId: number,
             progress: number;
 
         let toggle: boolean = false;
-        console.log('------------------------');
 
-        const carSelected = document.getElementById('element') as HTMLElement;
-        carSelected.setAttribute("style",
-            "background: blue; position: absolute; width: 50px; height: 50px; top: 50px;");
-
-        function step(timestamp: number) {
-            if (!start || progress > 400) start = timestamp;
-            progress = (timestamp - start) / 10 + 50;
-            carSelected.style.top = progress + 'px';
+        const step = (time: number) => {
+            if (!start || progress > 400) start = time;
+            progress = ((time - start) / velocity) * 20;
+            (this.carItem?.getElement() as HTMLElement).style.left = progress + 'px';
+            
             stopId = window.requestAnimationFrame(step);
+            console.log(stopId, "stopId");
         }
-
-        function toggleAnimation() {
+        function startAnimation() {
             if (!toggle) {
                 toggle = true;
                 window.requestAnimationFrame(step);
@@ -142,7 +156,7 @@ class Car extends View {
                 cancelAnimationFrame(stopId);
             }
         }
-
+        startAnimation()
     }
 
 }
